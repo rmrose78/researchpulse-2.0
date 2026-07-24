@@ -1,4 +1,5 @@
 import { useId, useState, type ChangeEvent } from 'react'
+import { ChevronDown } from 'lucide-react'
 import type { SearchFilters as SearchFiltersValue } from '@/types'
 import { JOURNAL_SUGGESTIONS } from '@/utils/journals'
 import styles from './search-filters.module.scss'
@@ -29,11 +30,17 @@ export default function SearchFilters({ filters, onChange }: SearchFiltersProps)
         onClick={() => setExpanded((prev) => !prev)}
       >
         {expanded ? 'Hide filters' : 'Show filters'}
+        <ChevronDown
+          size={16}
+          aria-hidden="true"
+          className={styles.chevron}
+          data-expanded={expanded}
+        />
       </button>
 
       {expanded && (
         <fieldset id={panelId} className={styles.panel}>
-          <legend className={styles.legend}>Filters</legend>
+          <legend className={styles.legend}>Refine your search</legend>
 
           <div className={styles.field}>
             <label htmlFor={`${panelId}-journal`}>Journal</label>

@@ -22,6 +22,23 @@ describe('LoadMore', () => {
     expect(screen.getByText('Showing 20 of 40 results')).toBeInTheDocument()
   })
 
+  it('formats large counts with thousands separators', () => {
+    // Arrange & Act
+    render(
+      <LoadMore
+        total={102661}
+        loadedCount={20}
+        hasMore
+        isLoading={false}
+        error={null}
+        onLoadMore={jest.fn()}
+      />
+    )
+
+    // Assert
+    expect(screen.getByText('Showing 20 of 102,661 results')).toBeInTheDocument()
+  })
+
   it('renders nothing when total is 0', () => {
     // Arrange & Act
     const { container } = render(

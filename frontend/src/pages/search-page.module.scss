@@ -1,17 +1,8 @@
 @use '@/styles/_variables.scss' as *;
 @use '@/styles/_mixins.scss' as *;
 
-.section {
-  @include section-padding;
+.formWrapper {
   width: 100%;
-  max-width: 48rem;
+  max-width: 32rem;
   margin: 0 auto;
-}
-
-.heading {
-  font-family: $font-heading;
-  font-weight: 700;
-  font-size: 1.75rem;
-  color: $navy-text;
-  margin-bottom: 1.5rem;
 }
