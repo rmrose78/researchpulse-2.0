@@ -31,6 +31,7 @@ function makeTrendingResponse(overrides: Partial<TrendingResponse> = {}): Trendi
     mode: DEFAULT_MODE,
     window_days: DEFAULT_WINDOW_DAYS,
     computed_at: '2026-01-01T00:00:00Z',
+    has_rank_history: true,
     results: [],
     ...overrides,
   }
@@ -536,6 +537,87 @@ describe('TrendingPage', () => {
       'aria-pressed',
       'true'
     )
+  })
+
+  it('shows a rank-history notice when this view has no comparison data yet', async () => {
+    // Arrange
+    mockedGetTrending.mockResolvedValue(
+      makeTrendingResponse({
+        has_rank_history: false,
+        results: [
+          {
+            pmid: '555',
+            title: 'A brand new combination',
+            abstract: null,
+            authors: [],
+            journal: null,
+            pub_date: '2026/Jul',
+            doi: null,
+            publication_types: [],
+            citation_count: 5,
+            velocity: 0.2,
+            notable_type: null,
+            rank_delta: null,
+            is_new: false,
+            age_days: 10,
+          },
+        ],
+      })
+    )
+
+    // Act
+    await renderPage()
+
+    // Assert
+    expect(await screen.findByText(/doesn't have trend history yet/i)).toBeInTheDocument()
+  })
+
+  it('does not show the rank-history notice once real comparison data exists', async () => {
+    // Arrange
+    mockedGetTrending.mockResolvedValue(
+      makeTrendingResponse({
+        has_rank_history: true,
+        results: [
+          {
+            pmid: '556',
+            title: 'An already-compared article',
+            abstract: null,
+            authors: [],
+            journal: null,
+            pub_date: '2026/Jul',
+            doi: null,
+            publication_types: [],
+            citation_count: 5,
+            velocity: 0.2,
+            notable_type: null,
+            rank_delta: null,
+            is_new: false,
+            age_days: 10,
+          },
+        ],
+      })
+    )
+
+    // Act
+    await renderPage()
+
+    // Assert
+    await screen.findByRole('heading', { name: /an already-compared article/i })
+    expect(screen.queryByText(/doesn't have trend history yet/i)).not.toBeInTheDocument()
+  })
+
+  it('does not show the rank-history notice alongside the empty state', async () => {
+    // Arrange
+    mockedGetTrending.mockResolvedValue(
+      makeTrendingResponse({ has_rank_history: false, results: [] })
+    )
+
+    // Act
+    await renderPage()
+
+    // Assert
+    await screen.findByText(/no trending articles found/i)
+    expect(screen.queryByText(/doesn't have trend history yet/i)).not.toBeInTheDocument()
   })
 
   it('disables a specialty pill already known to have no results at the current range', async () => {

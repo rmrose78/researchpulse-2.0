@@ -382,6 +382,18 @@ async def get_trending(
     return latest
 
 
+def has_previous_snapshot(db: Session, snapshot: TrendingSnapshot) -> bool:
+    """Whether a comparison was even possible for this snapshot — distinct
+    from whether anything actually moved. Lets callers tell 'no badges
+    because this is the first computation ever for this combination' apart
+    from 'no badges because a real comparison found no change,' which
+    attach_rank_movements' per-article output alone can't distinguish."""
+    return (
+        _previous_snapshot(db, snapshot.specialty, snapshot.window_days, snapshot.mode, snapshot.computed_at)
+        is not None
+    )
+
+
 def attach_rank_movements(db: Session, snapshot: TrendingSnapshot) -> list[TrendingArticle]:
     """Diffs `snapshot` against the next-most-recent snapshot for the same
     (specialty, mode, window_days) key, computed fresh on every call since

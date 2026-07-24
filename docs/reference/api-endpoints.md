@@ -8,7 +8,11 @@ GET    /api/reading-list/           ✅ done
 DELETE /api/reading-list/{pmid}     ✅ done
 GET    /api/trending/               ✅ done — query params: specialty, mode
                                      (trending | most_cited | new_notable),
-                                     window_days
+                                     window_days. Response includes
+                                     `has_rank_history` (bool) — whether a
+                                     prior snapshot existed to diff
+                                     rank-movement badges against,
+                                     independent of whether anything moved
 GET    /api/trending/availability   ✅ done — same specialty/mode/window_days
                                      params, used to drive fallback messaging
 GET    /api/reading-list/citations  ✅ done — best-effort live Semantic Scholar

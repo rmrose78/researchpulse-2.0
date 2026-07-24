@@ -57,6 +57,7 @@ export interface TrendingResponse {
   mode: string
   window_days: number
   computed_at: string
+  has_rank_history: boolean
   results: TrendingArticle[]
 }
 

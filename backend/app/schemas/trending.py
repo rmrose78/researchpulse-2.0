@@ -17,6 +17,7 @@ class TrendingResponse(BaseModel):
     mode: str
     window_days: int
     computed_at: datetime
+    has_rank_history: bool
     results: list[TrendingArticle]
 
 
