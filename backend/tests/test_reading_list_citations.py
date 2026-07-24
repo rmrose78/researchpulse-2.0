@@ -28,11 +28,18 @@ async def test_get_live_citation_counts_returns_counts_for_saved_articles():
     db = sessionLocal()
 
     # Act
-    with patch.object(
-        reading_list_service.semantic_scholar_service,
-        "get_citation_counts",
-        AsyncMock(return_value={"70000001": 42}),
-    ) as mocked:
+    with (
+        patch.object(
+            reading_list_service,
+            "list_saved_articles",
+            AsyncMock(return_value=[SavedArticle(pmid="70000001", title="A saved article")]),
+        ),
+        patch.object(
+            reading_list_service.semantic_scholar_service,
+            "get_citation_counts",
+            AsyncMock(return_value={"70000001": 42}),
+        ) as mocked,
+    ):
         result = await reading_list_service.get_live_citation_counts(db, client)
 
     # Assert
@@ -49,11 +56,18 @@ async def test_get_live_citation_counts_returns_empty_dict_when_reading_list_is_
     client = AsyncMock()
 
     # Act
-    with patch.object(
-        reading_list_service.semantic_scholar_service,
-        "get_citation_counts",
-        AsyncMock(return_value={}),
-    ) as mocked:
+    with (
+        patch.object(
+            reading_list_service,
+            "list_saved_articles",
+            AsyncMock(return_value=[]),
+        ),
+        patch.object(
+            reading_list_service.semantic_scholar_service,
+            "get_citation_counts",
+            AsyncMock(return_value={}),
+        ) as mocked,
+    ):
         result = await reading_list_service.get_live_citation_counts(db, client)
 
     # Assert
