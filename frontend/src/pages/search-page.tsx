@@ -46,7 +46,7 @@ export default function SearchPage() {
   return (
     <Hero
       heading="Search PubMed"
-      subtitle="35+ million articles, right at your fingertips — filter by journal or date to zero in on exactly what you need."
+      subtitle="Search any article on PubMed. 35+ million records, filtered by journal or date to find exactly what you need."
     >
       <div className={styles.formWrapper} id={searchPanelId}>
         <SearchBar
