@@ -3,6 +3,8 @@
 
 .container {
   @include flex-center;
+  flex-direction: column;
+  gap: 1rem;
   padding: 3rem 1rem;
   text-align: center;
 }
@@ -12,4 +14,24 @@
   font-size: 1rem;
   color: $gray-600;
   max-width: 32rem;
+}
+
+.action {
+  font-family: $font-body;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $clinical-blue;
+  padding: 0.5rem 1rem;
+  border: 1px solid $clinical-blue;
+  border-radius: 0.5rem;
+  transition: $transition-base;
+
+  &:hover {
+    background: $clinical-blue;
+    color: $white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
