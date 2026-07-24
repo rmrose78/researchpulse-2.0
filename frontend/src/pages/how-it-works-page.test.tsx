@@ -4,21 +4,43 @@ import { axe } from 'jest-axe'
 import HowItWorksPage from './how-it-works-page'
 
 describe('HowItWorksPage', () => {
-  it('renders the page heading and all five section headings', () => {
+  it('renders the page heading and all seven section headings', () => {
     // Arrange & Act
     render(<HowItWorksPage />)
 
     // Assert
     expect(screen.getByRole('heading', { name: /^how it works$/i, level: 1 })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /data sources/i, level: 2 })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /ranking modes/i, level: 2 })).toBeInTheDocument()
     expect(
       screen.getByRole('heading', { name: /specialties & time range/i, level: 2 })
     ).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /citation velocity/i, level: 2 })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /^notability$/i, level: 2 })).toBeInTheDocument()
     expect(
+      screen.getByRole('heading', { name: /rank-movement badges/i, level: 2 })
+    ).toBeInTheDocument()
+    expect(
       screen.getByRole('heading', { name: /freshness & caching/i, level: 2 })
     ).toBeInTheDocument()
+  })
+
+  it('names all three ranking modes and the Mode filter', () => {
+    // Arrange & Act
+    render(<HowItWorksPage />)
+
+    // Assert
+    expect(screen.getAllByText(/^trending$/i).length).toBeGreaterThan(0)
+    expect(screen.getByText(/most cited/i)).toBeInTheDocument()
+    expect(screen.getAllByText(/new & notable/i).length).toBeGreaterThan(0)
+  })
+
+  it('explains rank-movement badges and the cold-start notice', () => {
+    // Arrange & Act
+    render(<HowItWorksPage />)
+
+    // Assert
+    expect(screen.getByText(/still building/i)).toBeInTheDocument()
   })
 
   it('explains the velocity formula and the data sources', () => {

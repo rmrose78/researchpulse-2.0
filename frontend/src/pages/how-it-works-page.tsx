@@ -1,4 +1,4 @@
-import { Award, Database, Filter, RefreshCw, TrendingUp } from 'lucide-react'
+import { ArrowUpDown, Award, Database, Filter, ListFilter, RefreshCw, TrendingUp } from 'lucide-react'
 import styles from './how-it-works-page.module.scss'
 
 export default function HowItWorksPage() {
@@ -27,6 +27,24 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
+            <ListFilter size={20} aria-hidden="true" className={styles.icon} />
+            <h2 className={styles.cardTitle}>Ranking Modes</h2>
+          </div>
+          <p>
+            The Mode filter switches between three independent rankings of the same underlying
+            articles:
+          </p>
+          <p>
+            <strong>Trending</strong> sorts by citation velocity (see below) — what&rsquo;s
+            picking up citations fast, relative to its age. <strong>Most Cited</strong> sorts by
+            raw citation count, no recency weighting at all. <strong>New &amp; Notable</strong>{' '}
+            sorts by publication date, boosted by evidence tier (see below) so a high-quality
+            brand-new study surfaces before it&rsquo;s had time to accumulate citations.
+          </p>
+        </article>
+
+        <article className={styles.card}>
+          <div className={styles.cardHeader}>
             <Filter size={20} aria-hidden="true" className={styles.icon} />
             <h2 className={styles.cardTitle}>Specialties &amp; Time Range</h2>
           </div>
@@ -34,7 +52,8 @@ export default function HowItWorksPage() {
             Trending is split into six clinical specialties, each mapped to a MeSH search query.
             You choose how far back to look — 60 days, 6 months, 1 year, or 2 years — and that
             choice is exactly what gets queried; results are never silently widened past what you
-            picked.
+            picked. Specialty, time range, and ranking mode are three independent filters — mix
+            them however you like.
           </p>
         </article>
 
@@ -79,6 +98,28 @@ export default function HowItWorksPage() {
             of these types get a badge and rank above everything else in the window; other
             articles (plain journal articles, case reports, editorials) show no badge and fall
             back to recency order.
+          </p>
+        </article>
+
+        <article className={styles.card}>
+          <div className={styles.cardHeader}>
+            <ArrowUpDown size={20} aria-hidden="true" className={styles.icon} />
+            <h2 className={styles.cardTitle}>Rank-Movement Badges</h2>
+          </div>
+          <p>
+            Each card can carry a small badge next to its title, showing how its position changed
+            since the last update:
+          </p>
+          <p className={styles.formulaLine}>
+            <code className={styles.chip}>↑N / ↓N</code> — moved up or down N spots
+            {'  '}
+            <code className={styles.chip}>NEW</code> — wasn&rsquo;t ranked here at all last time
+          </p>
+          <p>
+            A view needs two updates to compare before any badge can appear. If a specialty, mode,
+            and time-range combination is still building that history, you&rsquo;ll see a short
+            note saying so instead of badges — that&rsquo;s expected, not a bug, and it resolves
+            itself on the next scheduled update.
           </p>
         </article>
 
