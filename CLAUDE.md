@@ -98,6 +98,18 @@ view counts, top paths, top referrers, reusing the existing Postgres
 instance instead of a paid third-party analytics tool. See
 `docs/reference/environment.md` for `ANALYTICS_SECRET`.
 
+Fixed (issue #37): rank-movement badges (↑/↓/NEW) had silently stopped
+appearing — they need two snapshots per (specialty, mode, window_days) key
+to diff against each other, but the only refresh path was reactive to live
+traffic, and 72 independent key combinations meant most keys never got
+revisited before their cache entry went stale. `app/services/trending_prewarm.py`
+now runs on a schedule (`app/main.py` lifespan, every `CACHE_TTL`) to
+recompute every combination regardless of traffic, guaranteeing badges
+have real data to diff against. Also added a `has_rank_history` field on
+`GET /api/trending/` plus a small frontend notice (`rank-history-notice`)
+so a combination still building its first comparison reads as "check back
+soon" rather than looking broken.
+
 Completed:
 - GET /health ✅
 - GET /api/search/ ✅

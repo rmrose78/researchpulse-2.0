@@ -7,6 +7,7 @@ import ErrorState from '@/components/sections/error-state/error-state'
 import TrendingFilters from '@/components/sections/trending-filters/trending-filters'
 import VelocityExplainer from '@/components/sections/velocity-explainer/velocity-explainer'
 import NotabilityExplainer from '@/components/sections/notability-explainer/notability-explainer'
+import RankHistoryNotice from '@/components/sections/rank-history-notice/rank-history-notice'
 import { useTrending } from '@/hooks/use-trending'
 import { citationDetail, formatRelativeTime, whyTrendingSentence } from '@/utils/format'
 import type { CitationStat, RankMovement } from '@/types'
@@ -23,6 +24,7 @@ export default function TrendingPage() {
     status: trendingStatus,
     articles: trendingArticles,
     computedAt,
+    hasRankHistory,
     disabledSpecialties,
     retry: retryTrending,
   } = useTrending()
@@ -93,6 +95,9 @@ export default function TrendingPage() {
               {mode === 'trending' && <VelocityExplainer />}
               {mode === 'new_notable' && <NotabilityExplainer />}
             </div>
+          )}
+          {trendingStatus === 'success' && trendingArticles.length > 0 && !hasRankHistory && (
+            <RankHistoryNotice />
           )}
           <div aria-live="polite" className={styles.trendingResults}>
             {trendingStatus === 'loading' && <SearchSkeleton />}

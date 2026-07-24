@@ -43,6 +43,7 @@ function makeResponse(overrides: Partial<TrendingResponse> = {}): TrendingRespon
     mode: DEFAULT_MODE,
     window_days: DEFAULT_WINDOW_DAYS,
     computed_at: '2026-01-01T00:00:00Z',
+    has_rank_history: true,
     results: [makeArticle()],
     ...overrides,
   }
@@ -87,7 +88,11 @@ describe('useTrending', () => {
   it('exposes the fetched articles and freshness timestamp on success', async () => {
     // Arrange
     mockedGetTrending.mockResolvedValue(
-      makeResponse({ computed_at: '2026-01-01T06:00:00Z', results: [makeArticle({ pmid: '999' })] })
+      makeResponse({
+        computed_at: '2026-01-01T06:00:00Z',
+        has_rank_history: false,
+        results: [makeArticle({ pmid: '999' })],
+      })
     )
 
     // Act
@@ -98,6 +103,7 @@ describe('useTrending', () => {
     expect(result.current.articles).toHaveLength(1)
     expect(result.current.articles[0].pmid).toBe('999')
     expect(result.current.computedAt).toBe('2026-01-01T06:00:00Z')
+    expect(result.current.hasRankHistory).toBe(false)
   })
 
   it('sets error status when the fetch fails, and retry recovers', async () => {

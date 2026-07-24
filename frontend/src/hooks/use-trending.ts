@@ -18,6 +18,7 @@ interface UseTrendingResult {
   status: TrendingStatus
   articles: TrendingArticle[]
   computedAt: string | null
+  hasRankHistory: boolean
   disabledSpecialties: Set<string>
   retry: () => void
 }
@@ -79,6 +80,7 @@ export function useTrending(): UseTrendingResult {
   const [status, setStatus] = useState<TrendingStatus>('loading')
   const [articles, setArticles] = useState<TrendingArticle[]>([])
   const [computedAt, setComputedAt] = useState<string | null>(null)
+  const [hasRankHistory, setHasRankHistory] = useState(false)
   const [disabledSpecialties, setDisabledSpecialties] = useState<Set<string>>(new Set())
 
   // Bumped on every fetch; a resolving/rejecting request only applies its
@@ -95,6 +97,7 @@ export function useTrending(): UseTrendingResult {
           if (requestIdRef.current !== requestId) return
           setArticles(response.results)
           setComputedAt(response.computed_at)
+          setHasRankHistory(response.has_rank_history)
           setStatus('success')
         })
         .catch((error) => {
@@ -190,6 +193,7 @@ export function useTrending(): UseTrendingResult {
     status,
     articles,
     computedAt,
+    hasRankHistory,
     disabledSpecialties,
     retry,
   }

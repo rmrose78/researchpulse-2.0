@@ -36,6 +36,7 @@ beforeEach(() => {
     mode: 'trending',
     window_days: 365,
     computed_at: '2026-01-01T00:00:00Z',
+    has_rank_history: true,
     results: [],
   })
   jest.mocked(getTrendingAvailability).mockReset()

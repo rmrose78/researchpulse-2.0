@@ -183,6 +183,65 @@ def test_get_trending_shows_no_badges_on_first_ever_snapshot():
     _delete_snapshots("cardiology")
 
 
+def test_get_trending_has_rank_history_true_when_previous_snapshot_exists():
+    # Arrange — two cached snapshots, no network calls needed
+    _delete_snapshots("cardiology")
+    db = sessionLocal()
+    db.add(
+        TrendingSnapshot(
+            specialty="cardiology", mode="trending", window_days=365,
+            computed_at=datetime.now(timezone.utc) - timedelta(hours=1),
+            payload=[_payload_article("1"), _payload_article("2")],
+        )
+    )
+    db.commit()
+    db.add(
+        TrendingSnapshot(
+            specialty="cardiology", mode="trending", window_days=365,
+            computed_at=datetime.now(timezone.utc),
+            payload=[_payload_article("2"), _payload_article("1")],
+        )
+    )
+    db.commit()
+    db.close()
+
+    with TestClient(app) as client:
+        # Act
+        response = client.get(
+            "/api/trending/", params={"specialty": "cardiology", "window_days": 365}
+        )
+        data = response.json()
+
+        # Assert
+        assert data["has_rank_history"] is True
+    _delete_snapshots("cardiology")
+
+
+def test_get_trending_has_rank_history_false_on_first_ever_snapshot():
+    # Arrange — exactly one cached snapshot, nothing to diff against
+    _delete_snapshots("cardiology")
+    db = sessionLocal()
+    db.add(
+        TrendingSnapshot(
+            specialty="cardiology", mode="trending", window_days=365,
+            payload=[_payload_article("1")],
+        )
+    )
+    db.commit()
+    db.close()
+
+    with TestClient(app) as client:
+        # Act
+        response = client.get(
+            "/api/trending/", params={"specialty": "cardiology", "window_days": 365}
+        )
+        data = response.json()
+
+        # Assert
+        assert data["has_rank_history"] is False
+    _delete_snapshots("cardiology")
+
+
 def test_get_trending_availability_omits_specialties_never_computed_at_this_window():
     # Arrange
     _delete_snapshots("neurology")
