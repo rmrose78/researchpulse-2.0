@@ -23,7 +23,7 @@ export default function LoadMore({
     <div className={styles.footer}>
       <div aria-live="polite" className={styles.liveRegion}>
         <p className={styles.progress}>
-          Showing {loadedCount} of {total} results
+          Showing {loadedCount.toLocaleString()} of {total.toLocaleString()} results
         </p>
         {error ? (
           <p className={styles.error} role="alert">

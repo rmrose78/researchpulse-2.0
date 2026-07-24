@@ -123,6 +123,69 @@ describe('SearchResults', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/loading results/i)
   })
 
+  it('shows the total result count on success', async () => {
+    // Arrange & Act
+    await renderResults({
+      status: 'success',
+      results: [makeArticle()],
+      query: 'cardiac',
+      onBack: jest.fn(),
+      onRetry: jest.fn(),
+      ...loadMoreDefaults,
+      total: 142,
+    })
+
+    // Assert
+    expect(screen.getByText('142 results')).toBeInTheDocument()
+  })
+
+  it('formats a large result count with thousands separators', async () => {
+    // Arrange & Act
+    await renderResults({
+      status: 'success',
+      results: [makeArticle()],
+      query: 'cardiac',
+      onBack: jest.fn(),
+      onRetry: jest.fn(),
+      ...loadMoreDefaults,
+      total: 102661,
+    })
+
+    // Assert
+    expect(screen.getByText('102,661 results')).toBeInTheDocument()
+  })
+
+  it('uses singular wording for exactly one result', async () => {
+    // Arrange & Act
+    await renderResults({
+      status: 'success',
+      results: [makeArticle()],
+      query: 'cardiac',
+      onBack: jest.fn(),
+      onRetry: jest.fn(),
+      ...loadMoreDefaults,
+      total: 1,
+    })
+
+    // Assert
+    expect(screen.getByText('1 result')).toBeInTheDocument()
+  })
+
+  it('does not show a result count on non-success statuses', async () => {
+    // Arrange & Act
+    await renderResults({
+      status: 'empty',
+      results: [],
+      query: 'zzznotreal',
+      onBack: jest.fn(),
+      onRetry: jest.fn(),
+      ...loadMoreDefaults,
+    })
+
+    // Assert
+    expect(screen.queryByText(/result(s)?$/i)).not.toBeInTheDocument()
+  })
+
   it('renders the article list on success', async () => {
     // Arrange & Act
     await renderResults({

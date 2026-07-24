@@ -9,12 +9,11 @@
   max-width: 32rem;
 }
 
+// Redundant once the page's own Hero heading already says "Search PubMed" —
+// kept in the DOM (not display:none) so it still contributes to the input's
+// accessible name for screen readers and existing role-based tests.
 .label {
-  font-family: $font-body;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: $navy-text;
-  text-align: left;
+  @include visually-hidden;
 }
 
 .controls {

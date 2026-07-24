@@ -21,6 +21,19 @@ describe('Hero', () => {
     expect(screen.getByText('Child content')).toBeInTheDocument()
   })
 
+  it('renders a custom heading and subtitle when provided', () => {
+    // Arrange & Act
+    render(
+      <Hero heading="Custom heading" subtitle="Custom subtitle">
+        <p>Child content</p>
+      </Hero>
+    )
+
+    // Assert
+    expect(screen.getByRole('heading', { level: 1, name: 'Custom heading' })).toBeInTheDocument()
+    expect(screen.getByText('Custom subtitle')).toBeInTheDocument()
+  })
+
   it('has no automatically detectable accessibility violations', async () => {
     // Arrange
     const { container } = render(

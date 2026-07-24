@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import Hero from '@/components/sections/hero/hero'
 import SearchBar from '@/components/sections/search-bar/search-bar'
 import SearchResults from '@/components/sections/search-results/search-results'
 import { useSearch } from '@/hooks/use-search'
@@ -43,11 +44,11 @@ export default function SearchPage() {
   }
 
   return (
-    <section className={styles.section} aria-labelledby="search-heading">
-      <h1 id="search-heading" className={styles.heading}>
-        Search PubMed
-      </h1>
-      <div id={searchPanelId}>
+    <Hero
+      heading="Search PubMed"
+      subtitle="35+ million articles, right at your fingertips — filter by journal or date to zero in on exactly what you need."
+    >
+      <div className={styles.formWrapper} id={searchPanelId}>
         <SearchBar
           value={query}
           onChange={setQuery}
@@ -58,6 +59,6 @@ export default function SearchPage() {
           autoFocus
         />
       </div>
-    </section>
+    </Hero>
   )
 }

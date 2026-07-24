@@ -2,19 +2,26 @@ import type { ReactNode } from 'react'
 import styles from './hero.module.scss'
 
 interface HeroProps {
+  heading?: string
+  subtitle?: string
   children: ReactNode
 }
 
-export default function Hero({ children }: HeroProps) {
+const DEFAULT_HEADING = 'Trending biomedical research, ranked by citation velocity.'
+const DEFAULT_SUBTITLE =
+  "PubMed shows you everything. ResearchPulse shows you what's rising right now, and why."
+
+export default function Hero({
+  heading = DEFAULT_HEADING,
+  subtitle = DEFAULT_SUBTITLE,
+  children,
+}: HeroProps) {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
       <h1 id="hero-heading" className={styles.heading}>
-        Trending biomedical research, ranked by citation velocity.
+        {heading}
       </h1>
-      <p className={styles.subtitle}>
-        PubMed shows you everything. ResearchPulse shows you what&apos;s rising right now, and
-        why.
-      </p>
+      <p className={styles.subtitle}>{subtitle}</p>
       {children}
     </section>
   )

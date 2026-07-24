@@ -49,6 +49,11 @@ export default function SearchResults({
           Results for '{query}'
         </h2>
       </div>
+      {status === 'success' && (
+        <p className={styles.resultCount}>
+          {total.toLocaleString()} {total === 1 ? 'result' : 'results'}
+        </p>
+      )}
       <div aria-live="polite">
         {status === 'loading' && <SearchSkeleton />}
         {status === 'success' && <ArticleList articles={results} />}
