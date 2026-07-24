@@ -1,6 +1,7 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals'
 import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import { axe } from 'jest-axe'
 import ReadingListPage from './reading-list-page'
 import ReadingListProvider from '@/components/providers/reading-list-provider'
@@ -33,9 +34,11 @@ function makeSaved(overrides: Partial<SavedArticle> = {}): SavedArticle {
 
 async function renderPage() {
   const utils = render(
-    <ReadingListProvider>
-      <ReadingListPage />
-    </ReadingListProvider>
+    <MemoryRouter>
+      <ReadingListProvider>
+        <ReadingListPage />
+      </ReadingListProvider>
+    </MemoryRouter>
   )
   await act(async () => {})
   return utils
@@ -88,6 +91,53 @@ describe('ReadingListPage', () => {
 
     // Assert
     expect(screen.getByText(/your reading list is empty/i)).toBeInTheDocument()
+  })
+
+  it('links back to Search from the empty state', async () => {
+    // Arrange
+    mockedGetSavedArticles.mockResolvedValue([])
+
+    // Act
+    await renderPage()
+
+    // Assert
+    expect(screen.getByRole('link', { name: /search pubmed/i })).toHaveAttribute('href', '/search')
+  })
+
+  it('shows a subtitle describing the page', async () => {
+    // Arrange
+    mockedGetSavedArticles.mockResolvedValue([])
+
+    // Act
+    await renderPage()
+
+    // Assert
+    expect(screen.getByText(/articles you've saved for later/i)).toBeInTheDocument()
+  })
+
+  it('shows a saved-article count when populated', async () => {
+    // Arrange
+    mockedGetSavedArticles.mockResolvedValue([
+      makeSaved({ pmid: '1' }),
+      makeSaved({ pmid: '2' }),
+    ])
+
+    // Act
+    await renderPage()
+
+    // Assert
+    expect(await screen.findByText('2 saved articles')).toBeInTheDocument()
+  })
+
+  it('uses singular wording for exactly one saved article', async () => {
+    // Arrange
+    mockedGetSavedArticles.mockResolvedValue([makeSaved({ pmid: '1' })])
+
+    // Act
+    await renderPage()
+
+    // Assert
+    expect(await screen.findByText('1 saved article')).toBeInTheDocument()
   })
 
   it('shows an error state with a working retry on load failure', async () => {

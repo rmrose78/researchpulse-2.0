@@ -58,14 +58,22 @@ export default function ReadingListPage() {
       <h1 id="reading-list-heading" className={styles.heading}>
         Reading List
       </h1>
+      <p className={styles.subtitle}>Articles you've saved for later, kept up to date.</p>
       <div aria-live="polite">
         {status === 'loading' && <SearchSkeleton />}
         {status === 'success' && articles.length === 0 && (
-          <EmptyState message="Your reading list is empty — save an article from search to see it here." />
+          <EmptyState
+            message="Your reading list is empty — save an article from search to see it here."
+            actionLabel="Search PubMed"
+            actionTo="/search"
+          />
         )}
         {status === 'success' && articles.length > 0 && (
           <>
             <h2 className={styles.visuallyHidden}>Saved articles</h2>
+            <p className={styles.count}>
+              {articles.length} {articles.length === 1 ? 'saved article' : 'saved articles'}
+            </p>
             <ArticleList articles={results} citationStats={citationStats} />
           </>
         )}
