@@ -33,7 +33,7 @@
 
   &[data-selected='true'] {
     border-left-color: $clinical-blue;
-    background: rgba(41, 115, 193, 0.08);
+    background: rgba($clinical-blue, 0.08);
     color: $clinical-blue;
     font-weight: 600;
   }

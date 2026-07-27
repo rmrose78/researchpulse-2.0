@@ -53,7 +53,7 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: $clinical-blue;
-  background: rgba(41, 115, 193, 0.08);
+  background: rgba($clinical-blue, 0.08);
   border-radius: 6px;
   padding: 0.15rem 0.5rem;
 }
@@ -154,7 +154,7 @@
 
 .rankNew {
   color: $clinical-blue;
-  background: rgba(41, 115, 193, 0.08);
+  background: rgba($clinical-blue, 0.08);
 }
 
 .toggle {

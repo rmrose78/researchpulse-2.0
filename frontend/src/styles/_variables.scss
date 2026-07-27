@@ -11,6 +11,13 @@ $navy-text: #0a1628;
 // real-browser Playwright+axe sweep (issue #49) that jsdom-based jest-axe
 // can't run.
 $clinical-blue: #276db7;
+// $clinical-blue is tuned for TEXT on light backgrounds — darkening it
+// further for that purpose would keep eroding its margin on dark
+// backgrounds (nav underline, focus rings on $navy), the same trap the
+// logo already hit. This is the dedicated dark-background counterpart —
+// matches the logo's "Pulse" text/mark (logo-full-v2.svg) — so the two
+// can be tuned independently.
+$clinical-blue-on-dark: #3583d4;
 $white: #ffffff;
 $gray-400: #94a3b8;
 $gray-600: #64748b;

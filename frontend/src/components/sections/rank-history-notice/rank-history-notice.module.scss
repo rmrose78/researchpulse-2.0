@@ -5,7 +5,7 @@
   font-family: $font-body;
   font-size: 0.875rem;
   color: $clinical-blue;
-  background: rgba(41, 115, 193, 0.08);
+  background: rgba($clinical-blue, 0.08);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   margin: 0;

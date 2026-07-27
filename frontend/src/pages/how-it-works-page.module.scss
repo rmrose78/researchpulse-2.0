@@ -76,7 +76,7 @@
   font-family: $font-mono;
   font-size: 0.85rem;
   color: $clinical-blue;
-  background: rgba(41, 115, 193, 0.08);
+  background: rgba($clinical-blue, 0.08);
   border-radius: 6px;
   padding: 0.15rem 0.5rem;
 }

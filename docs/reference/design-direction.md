@@ -10,10 +10,12 @@ Primary palette:
   #2973C1 — that value was 4.19-4.39:1 as text on the `.chip` badge tint,
   short of WCAG's 4.5:1 minimum; caught by the real-browser a11y sweep,
   issue #49)
-- Electric blue (on dark) #3583D4 — accent on navy/dark backgrounds only
-  (e.g. the nav logo's "Pulse" text/mark on the header); the primary
-  Electric blue is too dark to clear 4.5:1 against navy, so dark
-  backgrounds use this lighter variant instead
+- Electric blue (on dark) #3583D4 — accent on navy/dark backgrounds: the
+  nav logo's "Pulse" text/mark, the nav underline, and focus-visible rings
+  (`$clinical-blue-on-dark`). The primary Electric blue is tuned for text
+  on light backgrounds — darkening it further for that purpose would keep
+  eroding its margin against navy, so dark-background usage always goes
+  through this separate, independently-tunable variant instead
 - Slate gray #64748B — secondary text, metadata
 - Success green #059669 — positive states
 - Error red #DC2626 — error states

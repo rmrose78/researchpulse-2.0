@@ -90,7 +90,7 @@
 
   &:hover {
     color: $clinical-blue;
-    background: rgba(41, 115, 193, 0.08);
+    background: rgba($clinical-blue, 0.08);
   }
 
   &:focus-visible {
