@@ -39,7 +39,11 @@ IMPORTANT: we should be using best accessiblity practices on frontend.
 - [ ] Dynamic results announced — `aria-live="polite"` on results container
 
 ## Color and Contrast
-- [ ] Text contrast ratio minimum 4.5:1 against background
+- [ ] Text contrast ratio minimum 4.5:1 against background — don't eyeball
+      this. jest-axe runs in jsdom, which doesn't paint or lay out the
+      page, so it cannot verify real contrast either. `npm run test:a11y`
+      (real-browser Playwright + axe sweep, required at pre-commit) is the
+      only thing in the flow that actually checks this
 - [ ] Interactive element contrast minimum 3:1
 - [ ] Information never conveyed by color alone
 

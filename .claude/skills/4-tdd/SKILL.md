@@ -27,6 +27,10 @@ issue until the current one is visually verified and all tests green.
   committing
 - Never commit without running pre-commit.md checklist (once the developer
   does ask for a commit)
+- Once a commit does happen, push + open a PR + open it in the browser +
+  post an explicit "PR ready for review" stop message — see "When Issue is
+  Complete" below for the exact message and pre-commit.md for the commands.
+  Never auto-merge.
 - Act as UI/UX engineer — produce modern, accessible, polished UI
   - When no visual direction is specified beyond
     `docs/reference/design-direction.md`, default to a modern, accessible,
@@ -199,3 +203,19 @@ Status: ready for visual check and commit — I have not committed anything.
 Let me know when to commit, or commit it yourself.
 Next issue: <title or NONE>
 ```
+
+If the developer authorizes the commit in this session, continue immediately
+through push + PR + browser-open (see pre-commit.md → Git section for the
+exact commands) and post a second, separate stop message before doing
+anything else — including starting a next issue:
+
+```
+PR #<n> ready for review: <url>
+Opened in your browser for code review.
+Not merged — merge is always manual.
+```
+
+This second stop is a hard checkpoint on its own — don't fold it into other
+narration or bury it mid-message. It does not block *starting* the next
+issue's work if the developer says to; it only guarantees the PR-ready
+moment itself is never missed.
