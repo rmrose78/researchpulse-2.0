@@ -16,7 +16,11 @@
 - Radix UI for accessible primitives (Dialog, etc.)
 - Framer Motion for animations
 - lucide-react for icons
-- Jest + React Testing Library for tests, jest-axe for a11y checks
+- Jest + React Testing Library for tests, jest-axe for component-level
+  a11y checks
+- eslint-plugin-jsx-a11y for lint-time a11y checks; Playwright +
+  @axe-core/playwright + Lighthouse for a real-browser a11y sweep
+  (contrast/composition checks jsdom can't do)
 
 ### External APIs
 - PubMed NCBI E-utilities — search and article data

@@ -107,6 +107,13 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
 ### Environment Variables
 Copy `.env.example` to `.env` in `backend/` and fill in your values:
 PUBMED_API_KEY=your_key_here
@@ -119,6 +126,35 @@ Full variable list (CORS, analytics secret, etc.) in
 ```bash
 cd backend && pytest tests/ -v
 ```
+```bash
+cd frontend
+npm test              # jest + jest-axe (component-level a11y)
+npm run lint          # includes eslint-plugin-jsx-a11y
+npm run test:a11y     # Playwright + axe-core real-browser sweep
+npm run lighthouse:a11y  # accessibility-only Lighthouse audit
+npm run precommit     # build && lint && test
+```
+
+## Accessibility
+
+Three layers, each catching what the others structurally can't:
+- **Lint-time** — `eslint-plugin-jsx-a11y` catches keyboard/semantics
+  issues before a test even runs (e.g. a clickable `div` with no keyboard
+  handler)
+- **Component-level** — `jest-axe` runs an axe scan against every
+  component's rendered markup in every distinct state (loading, empty,
+  error, success)
+- **Real-browser** — `jest-axe` runs in jsdom, which doesn't paint or lay
+  out the page, so it can't catch real contrast failures or whole-page
+  composition bugs (duplicate ids, landmark conflicts, heading-hierarchy
+  breaks). A Playwright + `@axe-core/playwright` sweep across every route
+  plus Lighthouse fill that gap — and already caught real, shipped
+  contrast bugs this way.
+
+No compliance score or badge here — automated tools only catch a subset
+of real accessibility issues, and a static score goes stale the moment
+something changes. The practice above is what's actually enforced, on
+every change, not a number.
 
 ## What This Demonstrates
 Full stack development, external API integration, PostgreSQL persistence,

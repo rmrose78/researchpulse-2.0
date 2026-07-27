@@ -110,6 +110,16 @@ have real data to diff against. Also added a `has_rank_history` field on
 so a combination still building its first comparison reads as "check back
 soon" rather than looking broken.
 
+Frontend a11y tooling added (issue #47): `eslint-plugin-jsx-a11y` for
+lint-time checks, plus a real-browser sweep (`npm run test:a11y` —
+Playwright + `@axe-core/playwright` across all 5 routes and the mobile
+nav; `npm run lighthouse:a11y` — accessibility-only Lighthouse audit)
+that catches contrast/composition bugs jest-axe structurally can't, since
+jsdom doesn't paint or lay out the page. Also added `npm run precommit`
+(`build && lint && test`). Wired into
+`.claude/skills/4-tdd/pre-commit.md`'s checklist so every future frontend
+change is checked automatically, not just this one.
+
 Completed:
 - GET /health ✅
 - GET /api/search/ ✅
@@ -150,3 +160,5 @@ read the relevant one when the task touches it:
 - Phases / roadmap → `docs/reference/roadmap.md`
 - Environment variables → `docs/reference/environment.md`
 - Frontend conventions, SCSS architecture, folder structure → `.claude/skills/4-tdd/fe-standards.md`
+- Cross-project handoffs → `docs/handoff/` — check for pending handoff
+  docs from sibling projects (e.g. rr-dev) before starting new work. ask me if we should proced with the item or archive for now.
