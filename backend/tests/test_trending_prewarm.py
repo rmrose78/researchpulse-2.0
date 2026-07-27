@@ -1,11 +1,12 @@
 from collections import defaultdict
+from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock
 import pytest
 from app.database import sessionLocal
 from app.models.trending import TrendingSnapshot
 from app.services import trending_prewarm
 from app.services.specialties import SPECIALTY_QUERIES
-from app.services.trending import VALID_MODES, VALID_WINDOW_DAYS, attach_rank_movements
+from app.services.trending import CACHE_TTL, VALID_MODES, VALID_WINDOW_DAYS, attach_rank_movements
 
 
 def _delete_all_snapshots():
@@ -33,6 +34,73 @@ def test_all_combinations_covers_every_specialty_mode_window_pair():
     assert len(combos) == expected_count
     assert ("cardiology", "trending", 365) in combos
     assert ("oncology", "new_notable", 60) in combos
+
+
+def _write_snapshot(specialty: str, mode: str, window_days: int, computed_at: datetime):
+    db = sessionLocal()
+    db.add(
+        TrendingSnapshot(
+            specialty=specialty, mode=mode, window_days=window_days,
+            computed_at=computed_at, payload=[],
+        )
+    )
+    db.commit()
+    db.close()
+
+
+def test_all_combinations_fresh_is_false_when_no_snapshots_exist(monkeypatch):
+    # Arrange
+    monkeypatch.setattr(trending_prewarm, "ALL_COMBINATIONS", [("cardiology", "trending", 365)])
+
+    # Act
+    db = sessionLocal()
+    result = trending_prewarm.all_combinations_fresh(db, datetime.now(timezone.utc))
+    db.close()
+
+    # Assert
+    assert result is False
+
+
+def test_all_combinations_fresh_is_false_when_one_combination_is_stale(monkeypatch):
+    # Arrange — cardiology just refreshed, oncology hasn't been touched in
+    # well over a full cache cycle
+    monkeypatch.setattr(
+        trending_prewarm,
+        "ALL_COMBINATIONS",
+        [("cardiology", "trending", 365), ("oncology", "trending", 365)],
+    )
+    now = datetime.now(timezone.utc)
+    _write_snapshot("cardiology", "trending", 365, now)
+    _write_snapshot("oncology", "trending", 365, now - CACHE_TTL - timedelta(hours=1))
+
+    # Act
+    db = sessionLocal()
+    result = trending_prewarm.all_combinations_fresh(db, now)
+    db.close()
+
+    # Assert
+    assert result is False
+
+
+def test_all_combinations_fresh_is_true_when_every_combination_has_a_fresh_snapshot(monkeypatch):
+    # Arrange — this is the "a redeploy just happened moments after the last
+    # full sweep completed" scenario that broke rank-movement badges
+    monkeypatch.setattr(
+        trending_prewarm,
+        "ALL_COMBINATIONS",
+        [("cardiology", "trending", 365), ("oncology", "trending", 365)],
+    )
+    now = datetime.now(timezone.utc)
+    _write_snapshot("cardiology", "trending", 365, now)
+    _write_snapshot("oncology", "trending", 365, now)
+
+    # Act
+    db = sessionLocal()
+    result = trending_prewarm.all_combinations_fresh(db, now)
+    db.close()
+
+    # Assert
+    assert result is True
 
 
 @pytest.mark.asyncio
