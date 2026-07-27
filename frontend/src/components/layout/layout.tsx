@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 import { usePageViewTracking } from '@/hooks/use-pageview-tracking'
 import MobileNav from './mobile-nav/mobile-nav'
+import GithubIcon from './github-icon'
+import LinkedinIcon from './linkedin-icon'
 import { NAV_ITEMS } from './nav-items'
 import styles from './layout.module.scss'
 
@@ -46,6 +48,26 @@ export default function Layout({ children }: LayoutProps) {
         <NavLink to="/how-it-works" className={styles.footerLink}>
           How It Works
         </NavLink>
+        <div className={styles.footerSocial}>
+          <a
+            href="https://github.com/rmrose78/researchpulse"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source on GitHub"
+            className={styles.socialLink}
+          >
+            <GithubIcon />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ryan-rose-272626170/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ryan Rose on LinkedIn"
+            className={styles.socialLink}
+          >
+            <LinkedinIcon />
+          </a>
+        </div>
       </footer>
     </div>
   )
