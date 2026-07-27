@@ -22,6 +22,11 @@
 - Frontend conventions (component structure, SCSS modules, TypeScript rules,
   folder layout) are canonical in `.claude/skills/4-tdd/fe-standards.md` —
   read that before writing any component, don't duplicate it here
+- After any commit the developer has authorized, the flow always continues
+  to push + PR + browser-open, ending in an explicit "PR ready for review"
+  stop — never silently move on to other work without that stop. Mechanics
+  are canonical in `.claude/skills/4-tdd/pre-commit.md` (Git section) —
+  don't duplicate them here. Never auto-merge, ever.
 
 ## Collaboration Style
 
