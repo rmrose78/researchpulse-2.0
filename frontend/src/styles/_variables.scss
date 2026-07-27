@@ -5,7 +5,12 @@ $navy: #0a1628;
 $navy-text: #0a1628;
 // Darkened from #2d7dd2 — that value was 4.22:1 against white text, short of
 // WCAG's 4.5:1 minimum for normal-size text (axe-core caught it live-browser).
-$clinical-blue: #2973c1;
+// Darkened again from #2973c1 — as text on the .chip badge tint
+// (velocity-explainer/notability-explainer/how-it-works-page), that value
+// measured 4.19-4.39:1 against real composited backgrounds, caught by the
+// real-browser Playwright+axe sweep (issue #49) that jsdom-based jest-axe
+// can't run.
+$clinical-blue: #276db7;
 $white: #ffffff;
 $gray-400: #94a3b8;
 $gray-600: #64748b;
