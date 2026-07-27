@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="258" height="70" viewBox="0 0 258 70" fill="none">
   <text font-family="Inter, -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="32" font-weight="700">
-    <tspan x="4" y="42" fill="#F8FAFC">Research</tspan><tspan x="166.56" y="42" fill="#2973C1">Pulse</tspan>
+    <tspan x="4" y="42" fill="#F8FAFC">Research</tspan><tspan x="166.56" y="42" fill="#3583D4">Pulse</tspan>
   </text>
-  <path d="M4 52H152.56L155.56 53L158.56 30L161.56 63L164.56 52H252.87" stroke="#2973C1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4 52H152.56L155.56 53L158.56 30L161.56 63L164.56 52H252.87" stroke="#3583D4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

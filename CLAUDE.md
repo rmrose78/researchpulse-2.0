@@ -120,6 +120,17 @@ jsdom doesn't paint or lay out the page. Also added `npm run precommit`
 `.claude/skills/4-tdd/pre-commit.md`'s checklist so every future frontend
 change is checked automatically, not just this one.
 
+Real contrast failures found the moment that sweep ran (issue #49):
+`$clinical-blue` darkened again (`#2973c1` → `#276db7`) — as text on the
+`.chip` badge tint, the old value measured 4.19-4.39:1 against real
+composited backgrounds, short of WCAG's 4.5:1 minimum, invisible to
+jest-axe since jsdom doesn't paint the page. Also added a dedicated
+`$clinical-blue-on-dark` token (`#3583d4`) for the nav underline,
+focus-visible rings, and the nav logo — `$clinical-blue` is tuned for text
+on light backgrounds, so darkening it further (as just happened) would
+keep eroding its margin against the navy header; the on-dark variant can
+now be tuned independently.
+
 Completed:
 - GET /health ✅
 - GET /api/search/ ✅
