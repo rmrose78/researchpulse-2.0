@@ -150,3 +150,5 @@ read the relevant one when the task touches it:
 - Phases / roadmap → `docs/reference/roadmap.md`
 - Environment variables → `docs/reference/environment.md`
 - Frontend conventions, SCSS architecture, folder structure → `.claude/skills/4-tdd/fe-standards.md`
+- Cross-project handoffs → `docs/handoff/` — check for pending handoff
+  docs from sibling projects (e.g. rr-dev) before starting new work. ask me if we should proced with the item or archive for now.

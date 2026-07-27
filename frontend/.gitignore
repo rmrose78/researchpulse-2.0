@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# a11y sweep output
+playwright-report/
+test-results/
+lighthouse-reports/
+
 # Environment variables
 .env
 .env.*
