@@ -20,6 +20,10 @@
   transform: translateY(-100%);
   transition: $transition-base;
 
+  // Intentionally :focus, not :focus-visible — a skip link is off-screen
+  // until focused, so there's no mouse-click-vs-keyboard-tab ambiguity to
+  // avoid (unlike a visible button/input's focus ring), and some AT-driven
+  // focus doesn't reliably trigger :focus-visible. Issue #45.
   &:focus {
     transform: translateY(0);
   }
