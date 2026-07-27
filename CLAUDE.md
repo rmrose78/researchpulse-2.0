@@ -115,6 +115,20 @@ have real data to diff against. Also added a `has_rank_history` field on
 so a combination still building its first comparison reads as "check back
 soon" rather than looking broken.
 
+Fixed again (issue #55): #37's fix regressed under rapid redeploys. Every
+process restart unconditionally re-ran a full 72-combination prewarm sweep
+immediately (`app/main.py`'s `_prewarm_loop` called `prewarm_all` before
+its first sleep), regardless of how recently the last sweep finished. Two
+snapshots for the same combination written minutes apart (redeploy →
+immediate resweep → another redeploy shortly after → resweep again) have
+identical rankings — real citation counts can't move that fast — so every
+rank delta computed to zero and every badge vanished, even though
+`has_rank_history` still correctly reported a previous snapshot existed.
+`all_combinations_fresh()` (`trending_prewarm.py`) now lets the loop skip
+firing a sweep on startup when every combination already has a snapshot
+recent enough that one isn't due yet — `prewarm_all()` itself is
+unchanged, still always fully recomputes when actually called.
+
 Frontend a11y tooling added (issue #47): `eslint-plugin-jsx-a11y` for
 lint-time checks, plus a real-browser sweep (`npm run test:a11y` —
 Playwright + `@axe-core/playwright` across all 5 routes and the mobile

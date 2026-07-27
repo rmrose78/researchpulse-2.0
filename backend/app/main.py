@@ -1,14 +1,15 @@
 import asyncio
 import logging
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import search, reading_list, trending, analytics
 from app.config import settings
-from app.database import initialize_database
+from app.database import initialize_database, sessionLocal
 from app.services.trending import CACHE_TTL
-from app.services.trending_prewarm import prewarm_all
+from app.services.trending_prewarm import all_combinations_fresh, prewarm_all
 import app.models.reading_list
 import app.models.trending
 import app.models.analytics
@@ -24,10 +25,24 @@ PREWARM_INTERVAL_SECONDS = CACHE_TTL.total_seconds()
 
 async def _prewarm_loop(client: httpx.AsyncClient) -> None:
     while True:
+        # A process restart (e.g. a redeploy) used to unconditionally fire a
+        # full sweep immediately, regardless of how recently the last one
+        # finished. Two snapshots for the same combination written minutes
+        # apart have identical rankings (real citation counts can't move
+        # that fast), which zeroes out every rank-movement badge even though
+        # a "previous snapshot" genuinely exists — see
+        # app/services/trending_prewarm.py's all_combinations_fresh.
+        db = sessionLocal()
         try:
-            await prewarm_all(client)
-        except Exception:
-            logger.exception("Trending prewarm loop iteration failed")
+            already_fresh = all_combinations_fresh(db, datetime.now(timezone.utc))
+        finally:
+            db.close()
+
+        if not already_fresh:
+            try:
+                await prewarm_all(client)
+            except Exception:
+                logger.exception("Trending prewarm loop iteration failed")
         await asyncio.sleep(PREWARM_INTERVAL_SECONDS)
 
 
