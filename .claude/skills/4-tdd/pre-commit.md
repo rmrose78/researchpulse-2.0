@@ -45,7 +45,12 @@ Run through every item before committing. Do not commit if any item fails.
       (duplicate ids, landmark conflicts, heading-hierarchy breaks across
       sections) — this is the only thing in the flow that actually can.
       `npm run lighthouse:a11y` is available as a periodic/on-demand
-      second opinion but is not a required pre-commit gate
+      second opinion but is not a required pre-commit gate. If you do run
+      it: always pass `-- --no-view` — `--view` (auto-opening each report
+      in the browser) is only useful for a developer running it by hand,
+      not an unattended check. It also takes roughly a minute (real Chrome
+      launch + full audit per route) — delegate it to a subagent rather
+      than blocking on it directly
 - [ ] Developer confirmed visual verification
 - [ ] SCSS module exists for every new component
 - [ ] No inline styles
