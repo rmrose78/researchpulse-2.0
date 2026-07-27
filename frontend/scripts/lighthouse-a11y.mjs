@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn, execFileSync } from 'node:child_process'
-import { mkdirSync } from 'node:fs'
+import { mkdirSync, rmSync } from 'node:fs'
 
 // Keep in sync with the ROUTES array in e2e/a11y.spec.ts.
 const ROUTES = ['/', '/search', '/reading-list', '/how-it-works', '/analytics']
@@ -24,6 +24,10 @@ function waitForServer(url, timeoutMs = 30_000) {
 }
 
 async function main() {
+  // Clear reports from a previous run so removed/renamed routes don't leave
+  // stale files behind, and so a crashed/partial run is never mistaken for
+  // a fresh one.
+  rmSync(OUT_DIR, { recursive: true, force: true })
   mkdirSync(OUT_DIR, { recursive: true })
   const server = spawn('npm', ['run', 'preview', '--', '--port', String(PORT), '--strictPort'], {
     stdio: 'inherit',
@@ -44,10 +48,12 @@ async function main() {
           '--output=json',
           `--output-path=${OUT_DIR}/${slug}`,
           '--chrome-flags=--headless=new',
+          '--view',
           '--quiet',
         ],
         { stdio: 'inherit' }
       )
+      console.log(`Done: ${route} -> ${OUT_DIR}/${slug}.report.html (opened in browser)`)
     }
   } finally {
     server.kill()
