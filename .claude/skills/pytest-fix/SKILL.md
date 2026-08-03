@@ -1,3 +1,8 @@
+---
+name: pytest-fix
+description: Fix failing pytest tests using TDD red-green methodology, with a required 3x-stable-run check and explicit flaky-test handling.
+---
+
 # Skill: pytest-fix
 
 Fix failing pytest tests using TDD red-green methodology.

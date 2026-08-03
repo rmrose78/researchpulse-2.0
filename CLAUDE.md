@@ -1,6 +1,15 @@
+# CLAUDE.md — ResearchPulse
+This file gives Claude Code full context on the ResearchPulse project.
+Read this before writing any code or making any decisions.
+
+---
+
 ## Skill Shortcuts
-- "write tests for <file>" → read .claude/skills/pytest-backend.md and write tests for that file
-- "fix failing tests" → read .claude/skills/pytest-fix.md and fix failures using TDD
+- "write tests for <file>" → read .claude/skills/pytest-backend/SKILL.md and write tests for that file
+- "fix failing tests" → read .claude/skills/pytest-fix/SKILL.md and fix failures using TDD
+- "run a11y sweep" / "check accessibility violations" → read
+  `.claude/skills/a11y-sweep/SKILL.md`. Never run this without being
+  asked — it's a heavier token cost than the rest of this repo's workflow
 
 ## Commands
 - Activate venv: `source backend/venv/bin/activate`
@@ -10,18 +19,25 @@
 
 ## Critical Rules
 - Never commit .env
-- Routers stay thin — all logic goes in services
-- Never write raw SQL — SQLAlchemy only
-- All route handlers and service methods must be async
 - Tests follow AAA structure
 - SCSS modules only on frontend — no inline styles, no Tailwind
 - Run tests before every commit
-- Pydantic schemas define all request/response shapes
-- External API calls go through services — never call them from routers
-- Environment variables loaded via pydantic-settings, never hardcoded
 - Frontend conventions (component structure, SCSS modules, TypeScript rules,
   folder layout) are canonical in `.claude/skills/4-tdd/fe-standards.md` —
   read that before writing any component, don't duplicate it here
+- Backend conventions (thin routers, SQLAlchemy usage, async patterns,
+  Pydantic schemas, external API calls, env vars) are canonical in
+  `.claude/skills/4-tdd/be-standards.md` — read that before writing any
+  backend code, don't duplicate it here
+- Testability is a design constraint, not just a test-writing habit, on
+  both frontend and backend: keep decision/business logic separate from
+  I/O and side effects (DB calls, HTTP calls, animation/timer calls) so
+  the core logic can be unit-tested without heavy mocking. This doesn't
+  restrict what can be built — but if an implementation choice would make
+  a feature only testable via expensive or brittle means (or not testable
+  at all), flag that to the developer before building it that way, don't
+  silently skip the test. See `fe-standards.md`'s Framer Motion section
+  and `be-standards.md`'s equivalent for concrete patterns
 - After any commit the developer has authorized, the flow always continues
   to push + PR + browser-open, ending in an explicit "PR ready for review"
   stop — never silently move on to other work without that stop. Mechanics
@@ -50,10 +66,6 @@ Two modes — pick based on what's being asked.
 - Return only the code, or code + immediate unit tests
 - Minimal reproducible snippet for fixes, not the whole file, unless asked
 - Long outputs go in an Artifact so they're editable section by section
-
-# CLAUDE.md — ResearchPulse
-This file gives Claude Code full context on the ResearchPulse project.
-Read this before writing any code or making any decisions.
 
 ---
 
@@ -190,5 +202,6 @@ read the relevant one when the task touches it:
 - Phases / roadmap → `docs/reference/roadmap.md`
 - Environment variables → `docs/reference/environment.md`
 - Frontend conventions, SCSS architecture, folder structure → `.claude/skills/4-tdd/fe-standards.md`
+- Backend conventions (routers, ORM, async, schemas) → `.claude/skills/4-tdd/be-standards.md`
 - Cross-project handoffs → `docs/handoff/` — check for pending handoff
-  docs from sibling projects (e.g. rr-dev) before starting new work. ask me if we should proced with the item or archive for now.
+  docs from sibling projects (e.g. rr-dev) before starting new work.
