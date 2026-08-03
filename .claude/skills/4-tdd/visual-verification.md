@@ -47,6 +47,16 @@ Precondition: dev server running — `cd frontend && npm run dev` (`http://local
    "no console errors or warnings" item — this is captured here, not
    re-captured in pre-commit.md).
 
+## Efficiency note
+
+This loop is tool-call-dense (screenshots, `browser_evaluate` reads,
+accessibility-tree snapshots across up to 5 rounds). Delegate the whole
+loop to a background Agent call rather than running it inline in the main
+conversation — have the subagent execute rounds 1–7 above and return only
+a condensed report (confidence score, remaining gaps if any, and the final
+screenshot pair), keeping the raw intermediate tool output out of the main
+thread's context.
+
 ## If no target screenshot was supplied
 
 Fall back to the standard manual check — this loop only runs when there's

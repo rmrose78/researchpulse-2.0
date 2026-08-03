@@ -1,3 +1,8 @@
+---
+name: pytest-backend
+description: Generate Python backend tests for ResearchPulse using pytest and FastAPI's TestClient, following AAA structure and red-green validation.
+---
+
 # Skill: pytest-backend
 
 Generate Python backend tests for ResearchPulse using pytest and FastAPI's TestClient.
@@ -81,6 +86,13 @@ assert response.status_code == 999
 6. Only then is the test considered valid
 
 **Never accept a passing test that was never seen failing first.**
+
+## Testability Is a Design Constraint
+
+See `be-standards.md`'s "Testability Is a Design Constraint" section for
+the underlying design principle (keeping decision logic separate from
+DB/HTTP calls) — this skill covers how to write the actual test, not how
+to shape the code being tested.
 
 ## Example — Search Endpoint Tests
 ```python
