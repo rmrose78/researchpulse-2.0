@@ -8,4 +8,4 @@ FastAPI Backend (Railway)  ←→  PostgreSQL (Railway)
 
 ↕
 
-PubMed API + Semantic Scholar API + Anthropic API
+PubMed API + Semantic Scholar API + Gemini API
