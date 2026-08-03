@@ -16,7 +16,12 @@ const BUCKETS: { key: keyof AnalyticsSummary; label: string }[] = [
   { key: 'all_time', label: 'All Time' },
 ]
 
-function BucketSection({ label, bucket }: { label: string; bucket: AnalyticsBucket }) {
+interface BucketSectionProps {
+  label: string
+  bucket: AnalyticsBucket
+}
+
+function BucketSection({ label, bucket }: BucketSectionProps) {
   return (
     <section className={styles.bucket} aria-labelledby={`bucket-${label}`}>
       <h2 id={`bucket-${label}`} className={styles.bucketHeading}>

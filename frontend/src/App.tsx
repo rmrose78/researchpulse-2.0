@@ -7,7 +7,7 @@ import ReadingListPage from '@/pages/reading-list-page'
 import HowItWorksPage from '@/pages/how-it-works-page'
 import AnalyticsPage from '@/pages/analytics-page'
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <ReadingListProvider>
@@ -25,5 +25,3 @@ function App() {
     </BrowserRouter>
   )
 }
-
-export default App
