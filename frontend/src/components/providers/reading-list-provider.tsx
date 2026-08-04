@@ -24,7 +24,11 @@ function toSavedArticleShape(article: ArticleSearchResult): SavedArticle {
   }
 }
 
-export default function ReadingListProvider({ children }: { children: ReactNode }) {
+interface ReadingListProviderProps {
+  children: ReactNode
+}
+
+export default function ReadingListProvider({ children }: ReadingListProviderProps) {
   const [status, setStatus] = useState<ReadingListStatus>('loading')
   const [articles, setArticles] = useState<SavedArticle[]>([])
   const [toast, setToast] = useState<ToastState | null>(null)

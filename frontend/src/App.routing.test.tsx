@@ -1,6 +1,7 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals'
 import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 import App from './App'
 import { getSavedArticles, getTrending, getTrendingAvailability, searchArticles } from '@/utils/api'
 
@@ -57,6 +58,17 @@ describe('App routing', () => {
     // Assert
     expect(screen.getByRole('heading', { name: /trending biomedical research/i })).toBeInTheDocument()
     expect(screen.getByRole('radiogroup', { name: /specialty/i })).toBeInTheDocument()
+  })
+
+  it('has no automatically detectable accessibility violations on the landing page', async () => {
+    // Arrange
+    const { container } = await renderApp()
+
+    // Act
+    const results = await axe(container)
+
+    // Assert
+    expect(results).toHaveNoViolations()
   })
 
   it('renders the Search page at /search', async () => {
