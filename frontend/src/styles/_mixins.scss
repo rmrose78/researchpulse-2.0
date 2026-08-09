@@ -6,6 +6,12 @@
   }
 }
 
+@mixin large {
+  @media (min-width: #{$bp-lg}) {
+    @content;
+  }
+}
+
 @mixin small {
   @media (min-width: #{$bp-sm}) {
     @content;
@@ -26,6 +32,30 @@
   justify-content: center;
 }
 
+@mixin glass-card {
+  background: $surface;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: $transition-base;
+}
+
+@mixin card-hover {
+  transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-md;
+    border-color: rgba(39, 109, 183, 0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
 @mixin visually-hidden {
   position: absolute;
   width: 1px;
@@ -37,3 +67,4 @@
   white-space: nowrap;
   border: 0;
 }
+

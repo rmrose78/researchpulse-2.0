@@ -14,7 +14,9 @@ export default function HowItWorksPage() {
       <div className={styles.cards}>
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <Database size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <Database size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Data Sources</h2>
           </div>
           <p>
@@ -27,7 +29,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <ListFilter size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <ListFilter size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Ranking Modes</h2>
           </div>
           <p>
@@ -45,7 +49,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <Filter size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <Filter size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Specialties &amp; Time Range</h2>
           </div>
           <p>
@@ -59,7 +65,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <TrendingUp size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <TrendingUp size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Citation Velocity</h2>
           </div>
           <p>Velocity measures how fast an article is being cited relative to its age:</p>
@@ -78,7 +86,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <Award size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <Award size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Notability</h2>
           </div>
           <p>
@@ -103,7 +113,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <ArrowUpDown size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <ArrowUpDown size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Rank-Movement Badges</h2>
           </div>
           <p>
@@ -125,7 +137,9 @@ export default function HowItWorksPage() {
 
         <article className={styles.card}>
           <div className={styles.cardHeader}>
-            <RefreshCw size={20} aria-hidden="true" className={styles.icon} />
+            <div className={styles.iconCircle}>
+              <RefreshCw size={18} aria-hidden="true" />
+            </div>
             <h2 className={styles.cardTitle}>Freshness &amp; Caching</h2>
           </div>
           <p>
@@ -138,3 +152,4 @@ export default function HowItWorksPage() {
     </section>
   )
 }
+

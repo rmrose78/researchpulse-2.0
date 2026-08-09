@@ -85,7 +85,7 @@ describe('Layout', () => {
     expect(footer).toHaveTextContent(/researchpulse/i)
   })
 
-  it('renders GitHub and LinkedIn links in the footer that open in a new tab safely', () => {
+  it('renders GitHub and LinkedIn links in the footer that open in a new tab safely with author attribution', () => {
     // Arrange
     renderLayout()
 
@@ -95,6 +95,7 @@ describe('Layout', () => {
     const linkedinLink = within(footer).getByRole('link', { name: /ryan rose on linkedin/i })
 
     // Assert
+    expect(within(footer).getByText(/created by ryan rose/i)).toBeInTheDocument()
     expect(githubLink).toHaveAttribute('href', 'https://github.com/rmrose78/researchpulse')
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
@@ -105,6 +106,7 @@ describe('Layout', () => {
     expect(linkedinLink).toHaveAttribute('target', '_blank')
     expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
   })
+
 
   it('marks the brand and the trending link as active via aria-current on the trending route, and no others', () => {
     // Arrange

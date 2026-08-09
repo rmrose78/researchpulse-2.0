@@ -43,7 +43,13 @@ Read this before writing code, running tests, or initiating subagent tasks.
 
 - **Environment & Secrets**: Never commit `.env` or hardcode secrets (`ANALYTICS_SECRET`, database connection strings).
 - **Backend Testing & AAA Structure**: Backend unit/integration tests must strictly follow AAA structure with `# Arrange`, `# Act`, `# Assert` comments.
-- **Frontend SCSS Architecture**: SCSS modules only on frontend — no inline styles, no Tailwind.
+- **Frontend SCSS Architecture & Visual Contrast**:
+  - SCSS modules only on frontend — no inline styles, no Tailwind.
+  - Always verify parent container background colors before styling text/badges. Never use light text (`$white`, `$gray-300`) on light backgrounds (`#f8fafc`).
+  - Hover states (`transform: translateY(...)`) are strictly reserved for clickable buttons, links, and chips — never static display cards.
+  - Avoid emoji gimmicks (e.g. 🧬, 💊, 🧠, 💡) in UI labels/buttons. Use clean SVG icons (Lucide) or refined typography for a handcrafted human aesthetic.
+  - `jsdom` (Jest) cannot measure composited CSS contrast. Use real browser tools (`npm run test:a11y`, `npm run lighthouse:a11y`, or native Chrome CDP) for visual verification.
+
 - **Canonical Standards**:
   - Frontend conventions (component structure, SCSS modules, TypeScript rules, layout) are canonical in [.agents/skills/4-tdd/fe-standards.md](file:///Users/ryan/Desktop/Development/researchpulse/.agents/skills/4-tdd/fe-standards.md).
   - Backend conventions (thin routers, SQLAlchemy models, async patterns, Pydantic schemas, external API calls) are canonical in [.agents/skills/4-tdd/be-standards.md](file:///Users/ryan/Desktop/Development/researchpulse/.agents/skills/4-tdd/be-standards.md).
@@ -53,6 +59,7 @@ Read this before writing code, running tests, or initiating subagent tasks.
   - Never run `git commit` unless explicitly authorized by the developer.
   - After developer approval to commit, run the pre-commit checklist, push to remote, open a PR (`gh pr create`), open it in browser, and post an explicit `"PR ready for review"` stop message. Mechanics are canonical in [.agents/skills/4-tdd/pre-commit.md](file:///Users/ryan/Desktop/Development/researchpulse/.agents/skills/4-tdd/pre-commit.md). Never auto-merge.
 - **Writing & Copy Style**: No em dashes in prose, user-facing copy, or commit messages.
+
 
 ---
 

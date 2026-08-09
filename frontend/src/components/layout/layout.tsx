@@ -48,27 +48,33 @@ export default function Layout({ children }: LayoutProps) {
         <NavLink to="/how-it-works" className={styles.footerLink}>
           How It Works
         </NavLink>
-        <div className={styles.footerSocial}>
-          <a
-            href="https://github.com/rmrose78/researchpulse"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View source on GitHub"
-            className={styles.socialLink}
-          >
-            <GithubIcon />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/ryan-rose-272626170/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Ryan Rose on LinkedIn"
-            className={styles.socialLink}
-          >
-            <LinkedinIcon />
-          </a>
+        <div className={styles.footerSignature}>
+          <span className={styles.authorText}>Created by Ryan Rose</span>
+          <span className={styles.signatureDivider} aria-hidden="true">•</span>
+          <div className={styles.footerSocial}>
+            <a
+              href="https://www.linkedin.com/in/ryan-rose-272626170/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ryan Rose on LinkedIn"
+              className={styles.socialLink}
+            >
+              <LinkedinIcon />
+            </a>
+            <a
+              href="https://github.com/rmrose78/researchpulse"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View source on GitHub"
+              className={styles.socialLink}
+            >
+              <GithubIcon />
+            </a>
+          </div>
         </div>
       </footer>
+
     </div>
   )
 }
+

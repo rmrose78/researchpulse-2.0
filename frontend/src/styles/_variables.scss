@@ -3,28 +3,38 @@ $bg: #f8fafc;
 $surface: #ffffff;
 $navy: #0a1628;
 $navy-text: #0a1628;
-// Darkened from #2d7dd2 — that value was 4.22:1 against white text, short of
-// WCAG's 4.5:1 minimum for normal-size text (axe-core caught it live-browser).
-// Darkened again from #2973c1 — as text on the .chip badge tint
-// (velocity-explainer/notability-explainer/how-it-works-page), that value
-// measured 4.19-4.39:1 against real composited backgrounds, caught by the
-// real-browser Playwright+axe sweep (issue #49) that jsdom-based jest-axe
-// can't run.
+$navy-light: #13233c;
+$navy-card: #0f1d32;
+
+// Darkened from #2d7dd2 for WCAG 4.5:1 minimum compliance against light surfaces
 $clinical-blue: #276db7;
-// $clinical-blue is tuned for TEXT on light backgrounds — darkening it
-// further for that purpose would keep eroding its margin on dark
-// backgrounds (nav underline, focus rings on $navy), the same trap the
-// logo already hit. This is the dedicated dark-background counterpart —
-// matches the logo's "Pulse" text/mark (logo-full-v2.svg) — so the two
-// can be tuned independently.
+$clinical-blue-hover: #1e5999;
+// Dedicated dark-background counterpart matching logo "Pulse" text/mark
 $clinical-blue-on-dark: #3583d4;
+$clinical-blue-glow: rgba(53, 131, 212, 0.25);
+
+// Vibrant Executive Accents
+$teal-accent: #0d9488;
+$cyan-accent: #06b6d4;
+$indigo-accent: #6366f1;
+
 $white: #ffffff;
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
 $gray-400: #94a3b8;
-$gray-600: #64748b;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
 $gray-800: #1e293b;
 $gray-900: #0a1628;
+
 $success: #059669;
+$success-bg: #ecfdf5;
 $error: #dc2626;
+$error-bg: #fef2f2;
+$warning: #d97706;
 
 // Fonts
 $font-heading: 'Inter', sans-serif;
@@ -34,13 +44,35 @@ $font-body: 'Inter', sans-serif;
 // Spacing
 $section-px-mobile: 1.25rem;
 $section-px-desktop: 3rem;
-$section-py-mobile: 4.5rem;
-$section-py-desktop: 7rem;
+$section-py-mobile: 3.5rem;
+$section-py-desktop: 5.5rem;
 
 // Breakpoints
 $bp-sm: 480px;
 $bp-md: 768px;
+$bp-lg: 1024px;
+
+// Elevation & Glassmorphism
+$shadow-sm: 0 1px 3px rgba(10, 22, 40, 0.06), 0 1px 2px rgba(10, 22, 40, 0.04);
+$shadow-md: 0 4px 14px rgba(10, 22, 40, 0.08), 0 2px 4px rgba(10, 22, 40, 0.03);
+$shadow-lg: 0 12px 28px rgba(10, 22, 40, 0.12), 0 4px 10px rgba(10, 22, 40, 0.05);
+$shadow-glow: 0 0 24px rgba(53, 131, 212, 0.22);
+
+$glass-bg-dark: rgba(10, 22, 40, 0.88);
+$glass-border-dark: rgba(255, 255, 255, 0.12);
+$glass-bg-light: rgba(255, 255, 255, 0.92);
+$glass-border-light: rgba(226, 232, 240, 0.8);
+
+// Radius
+$radius-sm: 0.375rem;
+$radius-md: 0.625rem;
+$radius-lg: 0.875rem;
+$radius-xl: 1.25rem;
+$radius-full: 9999px;
 
 // Transitions
-$transition-base: 200ms ease;
-$transition-slow: 400ms ease;
+$transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-base: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+

@@ -159,6 +159,24 @@ describe('SearchPage', () => {
     expect(mockedSearchArticles).toHaveBeenCalledTimes(2)
   })
 
+  it('triggers search API when clicking a suggested topic chip', async () => {
+    // Arrange
+    mockedSearchArticles.mockResolvedValue(makeResponse([makeArticle()]))
+    await renderPage()
+
+    // Act
+    const chip = screen.getByRole('button', { name: /crispr-cas9/i })
+    await userEvent.click(chip)
+
+    // Assert
+    await waitFor(() => expect(mockedSearchArticles).toHaveBeenCalledWith('CRISPR Cas9 gene editing', {
+      journal: '',
+      date_from: '',
+      date_to: '',
+    }))
+    expect(screen.getByRole('heading', { name: /results for 'crispr cas9 gene editing'/i })).toBeInTheDocument()
+  })
+
   it('has no automatically detectable accessibility violations on the search form', async () => {
     // Arrange
     const { container } = await renderPage()
@@ -184,3 +202,4 @@ describe('SearchPage', () => {
     expect(results).toHaveNoViolations()
   })
 })
+

@@ -12,3 +12,5 @@ Verify all items before proposing a commit or opening a pull request.
 4. **jest-axe Assertion Gate**: Every new or modified component has a `jest-axe` test for all distinct render states.
 5. **No Console Artifacts**: Remove all `console.log` statements before commit proposal.
 6. **No Em Dashes**: Confirm zero em dashes in copy, prose, or commit message text.
+7. **Real-Browser Visual & Contrast Gate**: When CSS/SCSS modules are updated, run a real-browser visual sweep (`/visual-check`, `npm run test:a11y`, or `npm run lighthouse:a11y`) to verify parent-child background color contrast and strict hover semantics.
+

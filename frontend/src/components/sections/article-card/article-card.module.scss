@@ -4,15 +4,19 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem;
+  gap: 0.75rem;
+  padding: 1.25rem;
   background: $surface;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.08);
-  transition: $transition-base;
+  border-radius: $radius-lg;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: $shadow-sm;
+  transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+  animation: fadeInUp 0.3s ease-out;
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(10, 22, 40, 0.12);
+    transform: translateY(-3px);
+    box-shadow: $shadow-md;
+    border-color: rgba(39, 109, 183, 0.3);
   }
 
   @include desktop {
@@ -21,6 +25,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 }
 
@@ -43,6 +51,7 @@
   font-weight: 600;
   font-size: 1.1rem;
   color: $navy-text;
+  line-height: 1.35;
 }
 
 .notableBadge {
@@ -54,8 +63,9 @@
   text-transform: uppercase;
   color: $clinical-blue;
   background: rgba($clinical-blue, 0.08);
-  border-radius: 6px;
-  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba($clinical-blue, 0.2);
+  border-radius: $radius-full;
+  padding: 0.2rem 0.6rem;
 }
 
 .saveToggle {
@@ -63,20 +73,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem;
-  border: none;
-  background: transparent;
-  color: $gray-600;
+  padding: 0.4rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: $gray-50;
+  color: $gray-500;
   cursor: pointer;
-  border-radius: 0.25rem;
+  border-radius: $radius-full;
   transition: $transition-base;
 
   &:hover {
     color: $clinical-blue;
+    background: rgba($clinical-blue, 0.08);
+    border-color: rgba($clinical-blue, 0.3);
+    transform: scale(1.08);
   }
 
   &[aria-pressed='true'] {
     color: $clinical-blue;
+    background: rgba($clinical-blue, 0.12);
+    border-color: rgba($clinical-blue, 0.4);
   }
 
   &:focus-visible {
@@ -86,6 +101,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 }
 
@@ -95,9 +114,9 @@
 
 .abstract {
   font-family: $font-body;
-  font-size: 0.95rem;
-  color: $gray-800;
-  line-height: 1.5;
+  font-size: 0.9375rem;
+  color: $gray-700;
+  line-height: 1.55;
 
   &[data-expanded='false'] {
     display: -webkit-box;
@@ -118,6 +137,10 @@
   font-style: italic;
   font-size: 0.85rem;
   color: $gray-600;
+  background: $gray-50;
+  padding: 0.4rem 0.75rem;
+  border-radius: $radius-sm;
+  border-left: 3px solid $clinical-blue;
 }
 
 .statsRow {
@@ -130,7 +153,11 @@
 .citationStat {
   font-family: $font-mono;
   font-size: 0.8rem;
+  font-weight: 500;
   color: $clinical-blue;
+  background: rgba($clinical-blue, 0.06);
+  padding: 0.2rem 0.6rem;
+  border-radius: $radius-full;
 }
 
 .rankBadge {
@@ -138,23 +165,26 @@
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
-  border-radius: 6px;
-  padding: 0.15rem 0.5rem;
+  border-radius: $radius-full;
+  padding: 0.2rem 0.6rem;
 }
 
 .rankUp {
   color: $success;
-  background: rgba(5, 150, 105, 0.08);
+  background: rgba(5, 150, 105, 0.1);
+  border: 1px solid rgba(5, 150, 105, 0.2);
 }
 
 .rankDown {
   color: $error;
-  background: rgba(220, 38, 38, 0.08);
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.2);
 }
 
 .rankNew {
-  color: $clinical-blue;
-  background: rgba($clinical-blue, 0.08);
+  color: $cyan-accent;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.25);
 }
 
 .toggle {
@@ -169,8 +199,10 @@
   font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
+  transition: $transition-fast;
 
   &:hover {
+    color: $clinical-blue-hover;
     text-decoration: underline;
   }
 
@@ -183,3 +215,4 @@
 .chevron {
   display: inline-flex;
 }
+

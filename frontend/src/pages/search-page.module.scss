@@ -1,8 +1,194 @@
 @use '@/styles/_variables.scss' as *;
 @use '@/styles/_mixins.scss' as *;
 
+.container {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  animation: fadeInUp 0.4s ease-out;
+}
+
 .formWrapper {
   width: 100%;
-  max-width: 32rem;
+  max-width: 38rem;
   margin: 0 auto;
 }
+
+.topicsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: $surface;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  padding: 1.25rem 1.5rem;
+  box-shadow: $shadow-sm;
+}
+
+.topicsHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: $navy-text;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.sparkleIcon {
+  color: $clinical-blue;
+}
+
+.topicsTitle {
+  font-family: $font-heading;
+  font-weight: 700;
+  color: $navy-text;
+  font-size: 0.9375rem;
+}
+
+.chipsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 36rem;
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.topicChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: $font-heading;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $clinical-blue;
+  background: $gray-50;
+  border: 1px solid rgba(39, 109, 183, 0.25);
+  padding: 0.5rem 0.75rem;
+  border-radius: $radius-full;
+  transition: $transition-fast;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    background: rgba(39, 109, 183, 0.08);
+    border-color: $clinical-blue;
+    color: $clinical-blue-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(39, 109, 183, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $clinical-blue;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.featureCard {
+  background: $surface;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  padding: 1.25rem;
+  text-align: left;
+  box-shadow: $shadow-sm;
+
+  .featureTitle {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: $navy-text;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    font-size: 0.8125rem;
+    color: $gray-600;
+    line-height: 1.45;
+  }
+}
+
+.iconCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: $radius-md;
+  background: rgba(39, 109, 183, 0.08);
+  color: $clinical-blue;
+  margin-bottom: 0.65rem;
+}
+
+.searchTipsDetails {
+  background: $surface;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  text-align: left;
+  overflow: hidden;
+
+  &[open] {
+    background: $surface;
+  }
+}
+
+.searchTipsSummary {
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $gray-700;
+  cursor: pointer;
+  user-select: none;
+  transition: $transition-fast;
+
+  &:hover {
+    color: $navy-text;
+  }
+}
+
+.tipsContent {
+  padding: 0.75rem 1rem 1rem 1rem;
+  border-top: 1px solid $gray-100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: $gray-600;
+
+  code {
+    background: $gray-100;
+    color: $clinical-blue;
+    padding: 0.15rem 0.4rem;
+    border-radius: $radius-sm;
+    font-size: 0.8125rem;
+  }
+}
+
+
