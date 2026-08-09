@@ -26,7 +26,7 @@ Done:
   take precedence for shareable/bookmarked links)
 
 ### Phase 3 — AI Summarization (accessibility layer)
-Plain-English summaries via Anthropic API.
+Plain-English summaries via Gemini API (Gemini 2.5 Flash).
 Feature flagged: `ai_enabled: bool` in config.
 Endpoint: `GET /api/search/{pmid}/summary`
 

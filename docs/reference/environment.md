@@ -16,7 +16,7 @@ unset, the summary endpoint fails closed (404) regardless of what key is
 passed.
 
 Not yet implemented — Phase 3, not read by the app today:
-ANTHROPIC_API_KEY=your_key_here
+GEMINI_API_KEY=your_key_here
 AI_ENABLED=false
 
 ### frontend/.env (never commit)

@@ -25,7 +25,7 @@
 ### External APIs
 - PubMed NCBI E-utilities — search and article data
 - Semantic Scholar — citation counts for velocity algorithm (Phase 2, in use)
-- Anthropic API — AI summarization (Phase 3)
+- Gemini API (Gemini 2.5 Flash) — AI summarization (Phase 3)
 
 ### Hosting
 - Netlify — frontend (live)
