@@ -12,4 +12,4 @@ def test_cors_middleware_reads_allowed_origin_from_settings():
     configured_origins = cors_middleware.kwargs["allow_origins"]
 
     # Assert
-    assert configured_origins == [settings.frontend_url]
+    assert settings.frontend_url in configured_origins

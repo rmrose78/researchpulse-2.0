@@ -89,8 +89,23 @@ export default function AnalyticsPage() {
   }, [key])
 
   useEffect(() => {
-    fetchSummary()
-  }, [fetchSummary])
+    let cancelled = false
+    getAnalyticsSummary(key)
+      .then((response) => {
+        if (!cancelled) {
+          setSummary(response)
+          setStatus('success')
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setStatus('error')
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [key])
 
   function handleToggleExcluded() {
     const next = !excluded

@@ -67,9 +67,20 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+def get_allowed_origins() -> list[str]:
+    origins = [
+        origin.strip()
+        for origin in settings.allowed_origins.split(",")
+        if origin.strip()
+    ]
+    if settings.frontend_url and settings.frontend_url not in origins:
+        origins.append(settings.frontend_url)
+    return origins
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url],  # Trust requests from our deployed frontend
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],                      # Allow GET, POST, PUT, DELETE etc
     allow_headers=["*"],                      # Allow any headers
