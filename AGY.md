@@ -86,7 +86,7 @@ Choose mode based on request type:
 ## Antigravity Best Practices & Tooling
 
 - **Interactive Feature Discovery**: Use the `ask_question` tool when grilling or gathering user input instead of dumping multi-choice questions in plain text.
-- **Subagent Isolation**: Execute heavy visual screenshot comparisons and Playwright/Axe accessibility sweeps via isolated subagents (`invoke_subagent` with `Model: "flash"`).
+- **Subagent Isolation**: Execute heavy visual screenshot comparisons and accessibility sweeps via native Chrome DevTools (CDP) tools in isolated subagents (`invoke_subagent` with `Model: "flash"`).
 - **Background Tasks**: Launch long-running processes or dev servers via `run_command` and monitor without unnecessary polling loops.
 
 ---

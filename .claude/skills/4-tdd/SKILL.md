@@ -139,7 +139,7 @@ it('<behavior>', async () => {
 
 Run through `visual-verification.md` in this directory. If a design
 screenshot was provided, it drives an automated screenshot-compare-fix
-loop via the Playwright MCP tools; otherwise it falls back to the manual
+loop via native Chrome DevTools (CDP) tools; otherwise it falls back to the manual
 checklist. Either way, end by waiting for developer confirmation.
 
 ---

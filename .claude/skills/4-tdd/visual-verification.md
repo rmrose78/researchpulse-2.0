@@ -8,7 +8,7 @@ Precondition: dev server running — `cd frontend && npm run dev` (`http://local
 
 **Round 1 — baseline (real screenshots):**
 1. View the target screenshot.
-2. Use the Playwright MCP tools to navigate to the relevant route and capture
+2. Use native Chrome DevTools (CDP) tools (read_browser_page, take_browser_screenshot) to navigate to the relevant route and capture
    screenshots at:
    - Mobile — 375px wide
    - Desktop — 1440px wide

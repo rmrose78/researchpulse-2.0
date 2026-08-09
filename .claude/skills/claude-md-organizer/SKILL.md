@@ -51,7 +51,7 @@ differs in wording/specifics, that's expected, not drift):
   skills share
 - `manual-a11y-verification/` — portable checklist of what automated a11y
   tooling can't catch
-- `visual-check/` — Playwright MCP screenshot-diff loop (opt-in)
+- `visual-check/` — native Chrome DevTools (CDP) screenshot-diff loop (opt-in)
 - `a11y-sweep/` — real-browser Playwright + axe-core sweep (opt-in)
 - `claude-md-organizer/` — this skill
 - Only if this project has or will have a backend: a backend
