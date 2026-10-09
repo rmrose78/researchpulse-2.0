@@ -18,3 +18,11 @@ backend/app/__pycache__/
 
 # Playwright MCP scratch output
 .playwright-mcp/
+
+# Rust
+target/
+**/*.rs.bk
+
+# Legacy Python
+legacy_backend/venv/
+legacy_backend/__pycache__/
