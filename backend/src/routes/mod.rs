@@ -1,10 +1,33 @@
 pub mod health;
+pub mod reading_list;
 pub mod static_files;
 
-use axum::{routing::get, Router};
+use axum::{
+    routing::{delete, get},
+    Router,
+};
 
-pub fn create_router() -> Router {
+use crate::state::AppState;
+
+pub fn create_router(state: AppState) -> Router {
     Router::new()
         .route("/api/health", get(health::health_check))
+        .route(
+            "/api/reading-list",
+            get(reading_list::get_saved_articles).post(reading_list::save_article),
+        )
+        .route(
+            "/api/reading-list/",
+            get(reading_list::get_saved_articles).post(reading_list::save_article),
+        )
+        .route(
+            "/api/reading-list/citations",
+            get(reading_list::get_reading_list_citations),
+        )
+        .route(
+            "/api/reading-list/{pmid}",
+            delete(reading_list::remove_saved_article),
+        )
+        .with_state(state)
         .fallback(static_files::static_handler)
 }

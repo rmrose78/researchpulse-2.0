@@ -4,12 +4,27 @@ use axum::{
 };
 use http_body_util::BodyExt;
 use serde_json::Value;
+use sqlx::postgres::PgPoolOptions;
 use tower::ServiceExt;
+
+async fn setup_app() -> axum::Router {
+    let database_url = std::env::var("DATABASE_URL")
+        .unwrap_or_else(|_| "postgres://localhost/researchpulse".to_string());
+
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .expect("Failed to connect to test database");
+
+    let state = researchpulse::AppState::new(pool);
+    researchpulse::create_router(state)
+}
 
 #[tokio::test]
 async fn test_health_check_returns_ok() {
     // Arrange
-    let app = researchpulse::create_router();
+    let app = setup_app().await;
     let request = Request::builder()
         .uri("/api/health")
         .method("GET")
@@ -35,7 +50,7 @@ async fn test_health_check_returns_ok() {
 #[tokio::test]
 async fn test_root_path_serves_index_html() {
     // Arrange
-    let app = researchpulse::create_router();
+    let app = setup_app().await;
     let request = Request::builder()
         .uri("/")
         .method("GET")
@@ -63,7 +78,7 @@ async fn test_root_path_serves_index_html() {
 #[tokio::test]
 async fn test_spa_client_routes_fallback_to_index_html() {
     // Arrange
-    let app = researchpulse::create_router();
+    let app = setup_app().await;
     let trending_request = Request::builder()
         .uri("/trending")
         .method("GET")
@@ -101,7 +116,7 @@ async fn test_spa_client_routes_fallback_to_index_html() {
 #[tokio::test]
 async fn test_static_assets_serve_with_correct_mime() {
     // Arrange
-    let app = researchpulse::create_router();
+    let app = setup_app().await;
     let request = Request::builder()
         .uri("/favicon.svg")
         .method("GET")
@@ -125,7 +140,7 @@ async fn test_static_assets_serve_with_correct_mime() {
 #[tokio::test]
 async fn test_missing_file_with_extension_returns_404() {
     // Arrange
-    let app = researchpulse::create_router();
+    let app = setup_app().await;
     let request = Request::builder()
         .uri("/assets/nonexistent_file.js")
         .method("GET")
