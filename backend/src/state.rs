@@ -15,6 +15,7 @@ pub struct AppState {
     pub semantic_scholar: Arc<SemanticScholarClient>,
     pub search_cache: Cache<String, SearchResponse>,
     pub flight_locks: FlightLocks,
+    pub analytics_secret_key: Option<String>,
 }
 
 impl AppState {
@@ -34,6 +35,12 @@ impl AppState {
             semantic_scholar: Arc::new(semantic_scholar),
             search_cache,
             flight_locks: FlightLocks::default(),
+            analytics_secret_key: None,
         }
+    }
+
+    pub fn with_analytics_secret(mut self, key: Option<String>) -> Self {
+        self.analytics_secret_key = key;
+        self
     }
 }

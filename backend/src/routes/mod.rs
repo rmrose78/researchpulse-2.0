@@ -1,3 +1,4 @@
+pub mod analytics;
 pub mod health;
 pub mod reading_list;
 pub mod search;
@@ -5,7 +6,7 @@ pub mod static_files;
 pub mod trending;
 
 use axum::{
-    routing::{delete, get},
+    routing::{delete, get, post},
     Router,
 };
 
@@ -41,6 +42,16 @@ pub fn create_router(state: AppState) -> Router {
         .route(
             "/api/trending/availability/",
             get(trending::get_trending_availability),
+        )
+        .route("/api/analytics/pageview", post(analytics::create_pageview))
+        .route("/api/analytics/pageview/", post(analytics::create_pageview))
+        .route(
+            "/api/analytics/summary",
+            get(analytics::get_analytics_summary),
+        )
+        .route(
+            "/api/analytics/summary/",
+            get(analytics::get_analytics_summary),
         )
         .with_state(state)
         .fallback(static_files::static_handler)

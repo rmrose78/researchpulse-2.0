@@ -9,6 +9,7 @@ pub struct Config {
     pub pubmed_api_key: Option<String>,
     pub semantic_scholar_base_url: String,
     pub semantic_scholar_api_key: Option<String>,
+    pub analytics_secret_key: Option<String>,
 }
 
 impl Config {
@@ -31,6 +32,10 @@ impl Config {
         let semantic_scholar_api_key = env::var("SEMANTIC_SCHOLAR_API_KEY")
             .ok()
             .filter(|k| !k.trim().is_empty());
+        let analytics_secret_key = env::var("ANALYTICS_SECRET_KEY")
+            .or_else(|_| env::var("ANALYTICS_SECRET"))
+            .ok()
+            .filter(|k| !k.trim().is_empty());
 
         Self {
             port,
@@ -40,6 +45,7 @@ impl Config {
             pubmed_api_key,
             semantic_scholar_base_url,
             semantic_scholar_api_key,
+            analytics_secret_key,
         }
     }
 }
