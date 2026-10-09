@@ -2,6 +2,7 @@ pub mod health;
 pub mod reading_list;
 pub mod search;
 pub mod static_files;
+pub mod trending;
 
 use axum::{
     routing::{delete, get},
@@ -30,6 +31,16 @@ pub fn create_router(state: AppState) -> Router {
         .route(
             "/api/reading-list/{pmid}",
             delete(reading_list::remove_saved_article),
+        )
+        .route("/api/trending", get(trending::get_trending_articles))
+        .route("/api/trending/", get(trending::get_trending_articles))
+        .route(
+            "/api/trending/availability",
+            get(trending::get_trending_availability),
+        )
+        .route(
+            "/api/trending/availability/",
+            get(trending::get_trending_availability),
         )
         .with_state(state)
         .fallback(static_files::static_handler)

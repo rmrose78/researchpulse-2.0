@@ -7,6 +7,8 @@ pub struct Config {
     pub database_url: String,
     pub pubmed_base_url: String,
     pub pubmed_api_key: Option<String>,
+    pub semantic_scholar_base_url: String,
+    pub semantic_scholar_api_key: Option<String>,
 }
 
 impl Config {
@@ -24,6 +26,11 @@ impl Config {
             .or_else(|_| env::var("PUBMED_API_KEY"))
             .ok()
             .filter(|k| !k.trim().is_empty());
+        let semantic_scholar_base_url = env::var("SEMANTIC_SCHOLAR_BASE_URL")
+            .unwrap_or_else(|_| "https://api.semanticscholar.org".to_string());
+        let semantic_scholar_api_key = env::var("SEMANTIC_SCHOLAR_API_KEY")
+            .ok()
+            .filter(|k| !k.trim().is_empty());
 
         Self {
             port,
@@ -31,6 +38,8 @@ impl Config {
             database_url,
             pubmed_base_url,
             pubmed_api_key,
+            semantic_scholar_base_url,
+            semantic_scholar_api_key,
         }
     }
 }

@@ -35,7 +35,11 @@ async fn main() {
         config.pubmed_base_url,
         config.pubmed_api_key,
     );
-    let state = researchpulse::AppState::new(pool, entrez);
+    let semantic_scholar = researchpulse::services::semantic_scholar::SemanticScholarClient::new(
+        config.semantic_scholar_base_url,
+        config.semantic_scholar_api_key,
+    );
+    let state = researchpulse::AppState::new(pool, entrez, semantic_scholar);
     let app = researchpulse::create_router(state).layer(TraceLayer::new_for_http());
 
     let addr: SocketAddr = format!("{}:{}", config.host, config.port)

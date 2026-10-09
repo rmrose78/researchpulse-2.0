@@ -21,7 +21,11 @@ async fn setup_app() -> axum::Router {
         "https://eutils.ncbi.nlm.nih.gov/entrez/eutils".to_string(),
         None,
     );
-    let state = researchpulse::AppState::new(pool, entrez);
+    let semantic_scholar = researchpulse::services::semantic_scholar::SemanticScholarClient::new(
+        "https://api.semanticscholar.org".to_string(),
+        None,
+    );
+    let state = researchpulse::AppState::new(pool, entrez, semantic_scholar);
     researchpulse::create_router(state)
 }
 

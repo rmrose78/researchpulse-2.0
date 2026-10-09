@@ -101,8 +101,21 @@ pub async fn remove_saved_article(
     }
 }
 
-pub async fn get_reading_list_citations(State(_state): State<AppState>) -> impl IntoResponse {
-    Json(ReadingListCitationsResponse {
-        citations: HashMap::new(),
-    })
+pub async fn get_reading_list_citations(State(state): State<AppState>) -> impl IntoResponse {
+    let pmids = sqlx::query_scalar::<_, String>("SELECT pmid FROM saved_articles")
+        .fetch_all(&state.pool)
+        .await
+        .unwrap_or_default();
+
+    let citations = if pmids.is_empty() {
+        HashMap::new()
+    } else {
+        state
+            .semantic_scholar
+            .get_citation_counts(&pmids)
+            .await
+            .unwrap_or_default()
+    };
+
+    Json(ReadingListCitationsResponse { citations })
 }
