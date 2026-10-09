@@ -96,7 +96,7 @@ describe('Layout', () => {
 
     // Assert
     expect(within(footer).getByText(/created by ryan rose/i)).toBeInTheDocument()
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/rmrose78/researchpulse')
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/rmrose78/researchpulse-2.0')
     expect(githubLink).toHaveAttribute('target', '_blank')
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer')
     expect(linkedinLink).toHaveAttribute(

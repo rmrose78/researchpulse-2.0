@@ -3,10 +3,11 @@
 
 .notice {
   font-family: $font-body;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: $clinical-blue;
-  background: rgba($clinical-blue, 0.08);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  background: rgba(39, 109, 183, 0.06);
+  border: 1px solid rgba(39, 109, 183, 0.18);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
   margin: 0;
 }

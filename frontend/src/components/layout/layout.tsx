@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps) {
       <a href="#main-content" className={styles.skipLink}>
         Skip to main content
       </a>
-      <header>
+      <header className={styles.header}>
         <nav className={styles.nav} aria-label="Primary">
           <NavLink to="/" end className={styles.brand} aria-label="ResearchPulse home">
             <img src="/logo-full-v2.svg" alt="" className={styles.brandLogo} height={48} />
@@ -62,7 +62,7 @@ export default function Layout({ children }: LayoutProps) {
               <LinkedinIcon />
             </a>
             <a
-              href="https://github.com/rmrose78/researchpulse"
+              href="https://github.com/rmrose78/researchpulse-2.0"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="View source on GitHub"

@@ -9,29 +9,74 @@
   justify-content: flex-start;
   text-align: center;
   gap: 1.25rem;
-  padding: 1.5rem $section-px-mobile;
+  padding: 2.25rem $section-px-mobile 3rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 65rem;
+    height: 20rem;
+    background: radial-gradient(circle at 50% 15%, rgba(39, 109, 183, 0.09) 0%, rgba(6, 182, 212, 0.04) 45%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
   @include desktop {
-    padding: 1.5rem $section-px-desktop;
+    padding: 3rem $section-px-desktop 4rem;
   }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(39, 109, 183, 0.08);
+  border: 1px solid rgba(39, 109, 183, 0.22);
+  border-radius: $radius-full;
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $clinical-blue;
+  letter-spacing: 0.02em;
+  z-index: 1;
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: $success;
+  box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7);
+  animation: pulseDot 2s infinite;
 }
 
 .heading {
   font-family: $font-heading;
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: $navy-text;
-  max-width: 40rem;
+  max-width: 44rem;
+  line-height: 1.18;
+  z-index: 1;
 
   @include desktop {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 }
 
 .subtitle {
   font-family: $font-body;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: $gray-600;
-  max-width: 34rem;
-  margin-bottom: 0.5rem;
+  max-width: 36rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  z-index: 1;
 }

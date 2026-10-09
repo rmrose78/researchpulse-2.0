@@ -33,18 +33,28 @@
   }
 }
 
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 22, 40, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
-  padding: 1rem $section-px-mobile;
-  background: $navy;
-  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.16);
+  padding: 0.85rem $section-px-mobile;
+  max-width: 80rem;
+  margin: 0 auto;
 
   @include desktop {
-    padding: 1.25rem $section-px-desktop;
+    padding: 0.95rem $section-px-desktop;
   }
 }
 
@@ -53,7 +63,7 @@
   align-items: center;
 
   &:hover .brandLogo {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -71,7 +81,7 @@
 .navLinks {
   display: none;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -85,46 +95,30 @@
   position: relative;
   font-family: $font-body;
   font-weight: 500;
-  font-size: 0.9375rem;
-  color: $gray-400;
-  padding-bottom: 0.25rem;
-  transition: $transition-base;
-
-  // Absolutely positioned so its width animation never resizes the link
-  // itself or shifts sibling links in the flex row.
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background: $clinical-blue-on-dark;
-    transition: $transition-base;
-  }
+  font-size: 0.9rem;
+  color: $gray-300;
+  padding: 0.45rem 0.85rem;
+  border-radius: $radius-md;
+  transition: all $transition-fast;
 
   &:hover {
     color: $white;
-
-    &::after {
-      width: 100%;
-    }
+    background: rgba(255, 255, 255, 0.08);
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-
-    &::after {
-      transition: none;
-    }
   }
 }
 
 .navLinkActive {
   color: $white;
+  background: rgba(39, 109, 183, 0.22);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px rgba(53, 131, 212, 0.35);
 
-  &::after {
-    width: 100%;
+  &:hover {
+    background: rgba(39, 109, 183, 0.28);
   }
 }
 

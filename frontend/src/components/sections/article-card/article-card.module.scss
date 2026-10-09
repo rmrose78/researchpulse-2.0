@@ -4,23 +4,23 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.25rem;
+  gap: 0.85rem;
+  padding: 1.35rem;
   background: $surface;
-  border-radius: $radius-lg;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: $shadow-sm;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(10, 22, 40, 0.04), 0 4px 16px -2px rgba(10, 22, 40, 0.03);
   transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
   animation: fadeInUp 0.3s ease-out;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: $shadow-md;
-    border-color: rgba(39, 109, 183, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -4px rgba(10, 22, 40, 0.08), 0 0 0 1px rgba(39, 109, 183, 0.2);
+    border-color: rgba(39, 109, 183, 0.35);
   }
 
   @include desktop {
-    padding: 1.5rem;
+    padding: 1.6rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -36,36 +36,37 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .titleGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   min-width: 0;
 }
 
 .title {
   font-family: $font-heading;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1.125rem;
   color: $navy-text;
   line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 
 .notableBadge {
   align-self: flex-start;
   font-family: $font-mono;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: $clinical-blue;
-  background: rgba($clinical-blue, 0.08);
-  border: 1px solid rgba($clinical-blue, 0.2);
+  color: #1e5999;
+  background: linear-gradient(135deg, rgba(39, 109, 183, 0.1), rgba(6, 182, 212, 0.08));
+  border: 1px solid rgba(39, 109, 183, 0.25);
   border-radius: $radius-full;
-  padding: 0.2rem 0.6rem;
+  padding: 0.22rem 0.65rem;
 }
 
 .saveToggle {
@@ -73,25 +74,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  background: $gray-50;
-  color: $gray-500;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
   cursor: pointer;
   border-radius: $radius-full;
-  transition: $transition-base;
+  transition: all $transition-fast;
 
   &:hover {
     color: $clinical-blue;
-    background: rgba($clinical-blue, 0.08);
-    border-color: rgba($clinical-blue, 0.3);
-    transform: scale(1.08);
+    background: #ebf3fa;
+    border-color: #bad3ed;
+    transform: scale(1.06);
   }
 
   &[aria-pressed='true'] {
-    color: $clinical-blue;
-    background: rgba($clinical-blue, 0.12);
-    border-color: rgba($clinical-blue, 0.4);
+    color: $white;
+    background: $clinical-blue;
+    border-color: $clinical-blue;
+    box-shadow: 0 2px 8px rgba(39, 109, 183, 0.35);
   }
 
   &:focus-visible {
@@ -116,7 +119,7 @@
   font-family: $font-body;
   font-size: 0.9375rem;
   color: $gray-700;
-  line-height: 1.55;
+  line-height: 1.6;
 
   &[data-expanded='false'] {
     display: -webkit-box;
@@ -137,10 +140,13 @@
   font-style: italic;
   font-size: 0.85rem;
   color: $gray-600;
-  background: $gray-50;
-  padding: 0.4rem 0.75rem;
+  background: #f8fafc;
+  padding: 0.5rem 0.85rem;
   border-radius: $radius-sm;
   border-left: 3px solid $clinical-blue;
+  border-top: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .statsRow {
@@ -153,57 +159,62 @@
 .citationStat {
   font-family: $font-mono;
   font-size: 0.8rem;
-  font-weight: 500;
-  color: $clinical-blue;
-  background: rgba($clinical-blue, 0.06);
-  padding: 0.2rem 0.6rem;
+  font-weight: 600;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 0.25rem 0.65rem;
   border-radius: $radius-full;
 }
 
 .rankBadge {
   font-family: $font-mono;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.03em;
   border-radius: $radius-full;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.65rem;
 }
 
 .rankUp {
-  color: $success;
-  background: rgba(5, 150, 105, 0.1);
-  border: 1px solid rgba(5, 150, 105, 0.2);
+  color: #047857;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
 }
 
 .rankDown {
-  color: $error;
-  background: rgba(220, 38, 38, 0.1);
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
 }
 
 .rankNew {
-  color: $cyan-accent;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.25);
+  color: #0369a1;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
 }
 
 .toggle {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0;
-  border: none;
-  background: transparent;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: $radius-md;
+  border: 1px solid rgba(39, 109, 183, 0.15);
+  background: rgba(39, 109, 183, 0.05);
   color: $clinical-blue;
   font-family: $font-body;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.825rem;
   cursor: pointer;
-  transition: $transition-fast;
+  align-self: flex-start;
+  transition: all $transition-fast;
 
   &:hover {
+    background: rgba(39, 109, 183, 0.12);
+    border-color: rgba(39, 109, 183, 0.3);
     color: $clinical-blue-hover;
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   &:focus-visible {
@@ -215,4 +226,3 @@
 .chevron {
   display: inline-flex;
 }
-

@@ -18,6 +18,10 @@ export default function Hero({
 }: HeroProps) {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
+      <div className={styles.badge}>
+        <span className={styles.pulseDot} aria-hidden="true" />
+        <span>Biomedical Intelligence Engine</span>
+      </div>
       <h1 id="hero-heading" className={styles.heading}>
         {heading}
       </h1>
