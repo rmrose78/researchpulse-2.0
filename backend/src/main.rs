@@ -31,7 +31,11 @@ async fn main() {
         .await
         .expect("Failed to run database migrations");
 
-    let state = researchpulse::AppState::new(pool);
+    let entrez = researchpulse::services::entrez::EntrezClient::new(
+        config.pubmed_base_url,
+        config.pubmed_api_key,
+    );
+    let state = researchpulse::AppState::new(pool, entrez);
     let app = researchpulse::create_router(state).layer(TraceLayer::new_for_http());
 
     let addr: SocketAddr = format!("{}:{}", config.host, config.port)

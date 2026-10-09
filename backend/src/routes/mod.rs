@@ -1,5 +1,6 @@
 pub mod health;
 pub mod reading_list;
+pub mod search;
 pub mod static_files;
 
 use axum::{
@@ -12,6 +13,8 @@ use crate::state::AppState;
 pub fn create_router(state: AppState) -> Router {
     Router::new()
         .route("/api/health", get(health::health_check))
+        .route("/api/search", get(search::search_articles))
+        .route("/api/search/", get(search::search_articles))
         .route(
             "/api/reading-list",
             get(reading_list::get_saved_articles).post(reading_list::save_article),

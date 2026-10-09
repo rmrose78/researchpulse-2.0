@@ -17,7 +17,11 @@ async fn setup_app() -> axum::Router {
         .await
         .expect("Failed to connect to test database");
 
-    let state = researchpulse::AppState::new(pool);
+    let entrez = researchpulse::services::entrez::EntrezClient::new(
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils".to_string(),
+        None,
+    );
+    let state = researchpulse::AppState::new(pool, entrez);
     researchpulse::create_router(state)
 }
 
