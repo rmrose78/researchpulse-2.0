@@ -1,0 +1,54 @@
+stages:
+  - test
+  - build-deploy
+
+variables:
+  GCP_REGION: "us-central1"
+  GCP_REPO_NAME: "researchpulse-repo"
+  CLOUD_RUN_SERVICE: "researchpulse"
+
+lint-and-test:
+  stage: test
+  image: rust:1.85-alpine
+  before_script:
+    - apk add --no-cache musl-dev postgresql-client
+  script:
+    - cd backend
+    - cargo clippy -- -D warnings
+    - cargo fmt --check
+    - cargo test -- -q
+
+build-and-deploy:
+  stage: build-deploy
+  image: google/cloud-sdk:alpine
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    IMAGE_TAG: "${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_REPO_NAME}/app:${CI_COMMIT_SHA}"
+  id_tokens:
+    GCP_JWT:
+      aud: "https://iam.googleapis.com"
+  before_script:
+    - echo "${GCP_JWT}" > /tmp/gcp_jwt.json
+    - gcloud auth login --brief --cred-file=/tmp/gcp_jwt.json
+    - gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev --quiet
+  script:
+    - docker build -t ${IMAGE_TAG} .
+    - docker push ${IMAGE_TAG}
+    - >
+      gcloud run deploy ${CLOUD_RUN_SERVICE}
+      --image ${IMAGE_TAG}
+      --region ${GCP_REGION}
+      --platform managed
+      --allow-unauthenticated
+      --memory 256Mi
+      --cpu 1
+      --min-instances 0
+      --max-instances 2
+      --concurrency 80
+      --timeout 15s
+      --set-env-vars "PORT=8080,HOST=0.0.0.0"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'

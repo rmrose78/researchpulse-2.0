@@ -1,0 +1,13 @@
+.git
+.gitignore
+.gitlab-ci.yml
+*.md
+docs
+scripts
+legacy_backend
+target
+backend/target
+frontend/node_modules
+frontend/dist
+.env
+.env.*
