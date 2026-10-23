@@ -8,8 +8,8 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  gap: 1.25rem;
-  padding: 2.25rem $section-px-mobile 3rem;
+  gap: 1rem;
+  padding: 1.75rem $section-px-mobile 2.5rem;
   position: relative;
 
   &::before {
@@ -27,7 +27,7 @@
   }
 
   @include desktop {
-    padding: 3rem $section-px-desktop 4rem;
+    padding: 2.25rem $section-px-desktop 3.5rem;
   }
 }
 

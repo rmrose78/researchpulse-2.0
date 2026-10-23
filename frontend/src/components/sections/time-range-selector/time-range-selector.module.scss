@@ -13,9 +13,10 @@
   justify-content: space-between;
   width: 100%;
   text-align: left;
-  padding: 0.5rem 0.85rem;
+  padding: 0.55rem 0.85rem;
   border: 1px solid transparent;
-  border-radius: $radius-md;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
   background: transparent;
   color: $gray-700;
   font-family: $font-body;
@@ -38,7 +39,8 @@
     background: rgba(39, 109, 183, 0.08);
     color: $clinical-blue;
     font-weight: 600;
-    border-color: rgba(39, 109, 183, 0.2);
+    border-color: rgba(39, 109, 183, 0.18);
+    border-left: 3px solid $clinical-blue;
   }
 
   @media (prefers-reduced-motion: reduce) {

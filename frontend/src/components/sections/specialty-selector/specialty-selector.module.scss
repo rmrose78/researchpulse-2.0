@@ -14,7 +14,8 @@
   text-align: left;
   padding: 0.55rem 0.85rem;
   border: 1px solid transparent;
-  border-radius: $radius-md;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
   background: transparent;
   color: $gray-700;
   font-family: $font-body;
@@ -22,25 +23,10 @@
   font-size: 0.875rem;
   cursor: pointer;
   transition: all $transition-fast;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 3px;
-    height: 0;
-    background: $clinical-blue;
-    border-radius: 0 2px 2px 0;
-    transition: height $transition-fast;
-  }
 
   &:hover:not([data-disabled='true']) {
     background: $gray-100;
     color: $navy-text;
-    padding-left: 1rem;
   }
 
   &:focus-visible {
@@ -52,11 +38,8 @@
     background: rgba(39, 109, 183, 0.08);
     color: $clinical-blue;
     font-weight: 600;
-    border-color: rgba(39, 109, 183, 0.2);
-
-    &::before {
-      height: 18px;
-    }
+    border-color: rgba(39, 109, 183, 0.18);
+    border-left: 3px solid $clinical-blue;
   }
 
   &[data-disabled='true'] {
@@ -66,19 +49,10 @@
 
     &:hover {
       background: transparent;
-      padding-left: 0.85rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-
-    &::before {
-      transition: none;
-    }
-
-    &:hover:not([data-disabled='true']) {
-      padding-left: 0.85rem;
-    }
   }
 }
