@@ -31,6 +31,7 @@ struct ExternalIds {
 impl SemanticScholarClient {
     pub fn new(base_url: String, api_key: Option<String>) -> Self {
         let client = Client::builder()
+            .no_proxy()
             .timeout(Duration::from_secs(15))
             .build()
             .expect("Failed to create reqwest client for Semantic Scholar");

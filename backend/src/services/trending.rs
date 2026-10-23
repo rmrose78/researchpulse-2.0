@@ -482,38 +482,51 @@ pub async fn get_trending(
 
     let snapshot = match latest {
         Some(snap) => {
-            if is_stale(snap.computed_at, Utc::now()) {
+            let is_empty = snap.payload.is_empty();
+            if is_empty {
                 debug!(
-                    "Snapshot for {}:{}:{} is stale, spawning background refresh",
+                    "Snapshot for {}:{}:{} is empty, computing immediately",
                     specialty, mode, window_days
                 );
-                let pool_clone = pool.clone();
-                let entrez_clone = entrez.clone();
-                let sem_clone = semantic_scholar.clone();
-                let specialty_str = specialty.to_string();
-                let mode_str = mode.to_string();
-                let locks_clone = flight_locks.clone();
+                let key = format!("{}:{}:{}", specialty, mode, window_days);
+                let lock = flight_locks.get_lock(&key).await;
+                let _guard = lock.lock_owned().await;
+                compute_and_store(pool, entrez, semantic_scholar, specialty, window_days, mode)
+                    .await?
+            } else {
+                if is_stale(snap.computed_at, Utc::now()) {
+                    debug!(
+                        "Snapshot for {}:{}:{} is stale, spawning background refresh",
+                        specialty, mode, window_days
+                    );
+                    let pool_clone = pool.clone();
+                    let entrez_clone = entrez.clone();
+                    let sem_clone = semantic_scholar.clone();
+                    let specialty_str = specialty.to_string();
+                    let mode_str = mode.to_string();
+                    let locks_clone = flight_locks.clone();
 
-                tokio::spawn(async move {
-                    let key = format!("{}:{}:{}", specialty_str, mode_str, window_days);
-                    let lock = locks_clone.get_lock(&key).await;
-                    if let Ok(_guard) = lock.try_lock_owned() {
-                        if let Err(e) = compute_and_store(
-                            &pool_clone,
-                            &entrez_clone,
-                            &sem_clone,
-                            &specialty_str,
-                            window_days,
-                            &mode_str,
-                        )
-                        .await
-                        {
-                            error!("Background refresh failed for {}: {}", key, e);
+                    tokio::spawn(async move {
+                        let key = format!("{}:{}:{}", specialty_str, mode_str, window_days);
+                        let lock = locks_clone.get_lock(&key).await;
+                        if let Ok(_guard) = lock.try_lock_owned() {
+                            if let Err(e) = compute_and_store(
+                                &pool_clone,
+                                &entrez_clone,
+                                &sem_clone,
+                                &specialty_str,
+                                window_days,
+                                &mode_str,
+                            )
+                            .await
+                            {
+                                error!("Background refresh failed for {}: {}", key, e);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                snap
             }
-            snap
         }
         None => {
             let key = format!("{}:{}:{}", specialty, mode, window_days);

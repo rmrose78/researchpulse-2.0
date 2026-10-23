@@ -26,6 +26,7 @@ impl EntrezClient {
             base_url,
             api_key,
             client: reqwest::Client::builder()
+                .no_proxy()
                 .timeout(Duration::from_secs(15))
                 .build()
                 .unwrap_or_default(),
