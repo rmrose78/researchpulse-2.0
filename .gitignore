@@ -22,7 +22,3 @@ backend/app/__pycache__/
 # Rust
 target/
 **/*.rs.bk
-
-# Legacy Python
-legacy_backend/venv/
-legacy_backend/__pycache__/

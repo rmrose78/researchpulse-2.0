@@ -4,7 +4,6 @@
 *.md
 docs
 scripts
-legacy_backend
 target
 backend/target
 frontend/node_modules
